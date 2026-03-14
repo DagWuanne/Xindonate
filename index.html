@@ -1,1135 +1,253 @@
 <!DOCTYPE html>
 <html lang="vi">
- 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuôi Tôi 🍜</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Bùi Đăng Quân | Dashboard v11</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
- 
         :root {
-            --primary: #ff6b6b;
-            --secondary: #4ecdc4;
-            --accent: #ffe66d;
-            --dark: #2d3436;
-            --light: #f9f9f9;
-            --gradient: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            --p-color: #6366f1; --s-color: #f43f5e; --t-color: #10b981;
+            --bg: #030712; --card: rgba(17, 24, 39, 0.9);
+            --border: rgba(255, 255, 255, 0.1); --text: #f9fafb;
         }
- 
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body {
-            font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
- 
-        /* Floating elements */
-        .floating-emoji {
-            position: fixed;
-            font-size: 2rem;
-            animation: float 15s infinite linear;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 0;
-        }
- 
-        @keyframes float {
-            0% {
-                opacity: 0;
-                transform: translateY(100vh) rotate(0deg);
-            }
- 
-            1% {
-                opacity: 0.6;
-            }
- 
-            100% {
-                opacity: 0.6;
-                transform: translateY(-100vh) rotate(360deg);
-            }
-        }
- 
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 1;
-        }
- 
-        .logo {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            animation: bounce 2s infinite;
-        }
- 
-        @keyframes bounce {
- 
-            0%,
-            100% {
-                transform: translateY(0);
-            }
- 
-            50% {
-                transform: translateY(-20px);
-            }
-        }
- 
-        .title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: white;
-            text-shadow: 3px 3px 0 var(--primary), 6px 6px 0 rgba(0, 0, 0, 0.1);
-            margin-bottom: 10px;
-        }
- 
-        .subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 500;
-        }
- 
-        .strike {
-            text-decoration: line-through;
-            opacity: 0.7;
-        }
- 
-        /* Main container */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
- 
-        /* Profile card */
-        .profile-card {
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
- 
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 150px;
-            background: var(--gradient);
-        }
- 
-        .avatar-container {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-            z-index: 1;
-        }
- 
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 5px solid white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            object-fit: cover;
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-        }
- 
-        .status-badge {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            background: #00b894;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 3px solid white;
-        }
- 
-        .profile-name {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--dark);
-            text-align: center;
-            margin-bottom: 5px;
-        }
- 
-        .profile-tagline {
-            text-align: center;
-            color: #636e72;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
- 
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
- 
-        .stat-item {
-            text-align: center;
-        }
- 
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
- 
-        .stat-label {
-            color: #636e72;
-            font-size: 0.9rem;
-        }
- 
-        /* Story section */
-        .story-section {
-            background: #f8f9fa;
-            border-radius: 20px;
-            padding: 25px;
-            margin: 20px 0;
-        }
- 
-        .story-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
- 
-        .story-content {
-            color: #636e72;
-            line-height: 1.8;
-            font-size: 1rem;
-        }
- 
-        .story-content p {
-            margin-bottom: 10px;
-        }
- 
-        .highlight {
-            background: linear-gradient(180deg, transparent 60%, var(--accent) 60%);
-            padding: 0 5px;
-            font-weight: 600;
-        }
- 
-        /* Goals */
-        .goals-section {
-            margin: 30px 0;
-        }
- 
-        .goal-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: white;
-            border-radius: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-        }
- 
-        .goal-item:hover {
-            transform: translateX(10px);
-        }
- 
-        .goal-icon {
-            font-size: 2rem;
-        }
- 
-        .goal-text {
-            flex: 1;
-        }
- 
-        .goal-title {
-            font-weight: 600;
-            color: var(--dark);
-        }
- 
-        .goal-desc {
-            font-size: 0.9rem;
-            color: #636e72;
-        }
- 
-        /* Donation options */
-        .donation-section {
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin-bottom: 30px;
-        }
- 
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--dark);
-            text-align: center;
-            margin-bottom: 30px;
-        }
- 
-        .donation-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
- 
-        .donation-card {
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 3px solid #f0f0f0;
-        }
- 
-        .donation-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
- 
-        .donation-card.selected {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
-        }
- 
-        .donation-emoji {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
- 
-        .donation-amount {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
- 
-        .donation-desc {
-            font-size: 0.9rem;
-            color: #636e72;
-            margin-top: 5px;
-        }
- 
-        .currency {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #636e72;
-        }
- 
-        /* Donate button */
-        .donate-btn {
-            width: 100%;
-            padding: 20px;
-            background: var(--gradient);
-            border: none;
-            border-radius: 20px;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
-            animation: donatePulse 2s ease-in-out infinite;
-            position: relative;
-            overflow: hidden;
-        }
- 
-        .donate-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
- 
-        .donate-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
- 
-        .donate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
-            animation: donatePulse 1s ease-in-out infinite;
-        }
- 
-        .donate-btn:active {
-            transform: translateY(0);
-        }
- 
-        .donate-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            animation: none;
-        }
- 
-        @keyframes donatePulse {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
-            }
- 
-            50% {
-                transform: scale(1.02);
-                box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6), 0 0 0 10px rgba(255, 107, 107, 0.1);
-            }
- 
-            100% {
-                transform: scale(1);
-                box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
-            }
-        }
- 
-        /* Recent donations */
-        .recent-donations {
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin-bottom: 30px;
-        }
- 
-        .donation-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
- 
-        .donation-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            border-bottom: 1px solid #f0f0f0;
-            animation: slideIn 0.5s ease;
-        }
- 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
- 
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
- 
-        .donation-item:last-child {
-            border-bottom: none;
-        }
- 
-        .donor-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
- 
-        .donor-info {
-            flex: 1;
-        }
- 
-        .donor-name {
-            font-weight: 600;
-            color: var(--dark);
-        }
- 
-        .donor-message {
-            font-size: 0.9rem;
-            color: #636e72;
-        }
- 
-        .donor-amount {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
- 
-        .donor-time {
-            font-size: 0.8rem;
-            color: #b2bec3;
-        }
- 
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: rgba(255, 255, 255, 0.8);
-        }
- 
-        .footer a {
-            color: var(--accent);
-            text-decoration: none;
-        }
- 
-        .disclaimer {
-            margin-top: 20px;
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
- 
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: white;
-            padding: 20px 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transform: translateX(1000px);
-            transition: transform 0.5s;
-            z-index: 1000;
-        }
- 
-        .toast.show {
-            transform: translateX(0);
-        }
- 
-        .toast-icon {
-            font-size: 2rem;
-        }
- 
-        .toast-message {
-            font-weight: 600;
-            color: var(--dark);
-        }
- 
-        /* Progress bar */
-        .progress-section {
-            margin: 30px 0;
-        }
- 
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
- 
-        .progress-label {
-            font-weight: 600;
-            color: var(--dark);
-        }
- 
-        .progress-value {
-            color: var(--primary);
-            font-weight: 700;
-        }
- 
-        .progress-bar {
-            height: 20px;
-            background: #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
- 
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient);
-            border-radius: 10px;
-            transition: width 1s ease;
+            background-color: var(--bg); color: var(--text); min-height: 100vh;
+            background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%);
+            display: flex; flex-direction: column; align-items: center; padding-bottom: 50px;
+        }
+
+        /* 1. PROFILE */
+        .profile-section { width: 100%; max-width: 500px; padding: 50px 20px 20px; text-align: center; }
+        .avatar-box {
+            width: 120px; height: 120px; margin: 0 auto 15px; padding: 5px; border-radius: 50%;
+            background: linear-gradient(45deg, var(--p-color), var(--s-color));
             position: relative;
         }
- 
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shimmer 2s infinite;
+        .avatar-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid var(--bg); }
+        .status-dot { 
+            position: absolute; bottom: 8px; right: 8px; width: 18px; height: 18px; 
+            background: var(--t-color); border: 3px solid var(--bg); border-radius: 50%; 
+            animation: pulse 2s infinite; 
         }
- 
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%);
-            }
- 
-            100% {
-                transform: translateX(100%);
-            }
+        @keyframes pulse { 0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 100% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } }
+
+        /* 2. STATS */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+            width: 100%; max-width: 480px; margin-bottom: 20px; padding: 0 20px;
         }
- 
-        .check {
-            color: #00b894;
-            font-size: 1.5rem;
+        .stat-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 24px; padding: 15px; text-align: center; backdrop-filter: blur(10px);
         }
- 
-        .cross {
-            color: #ff7675;
-            font-size: 1.5rem;
+        .stat-card b { display: block; font-size: 1.2rem; font-weight: 800; color: #fff; }
+        .stat-card span { font-size: 0.6rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; }
+
+        /* 3. MAIN PANEL */
+        .container { width: 100%; max-width: 480px; padding: 0 20px; }
+        .panel {
+            background: var(--card); border: 1px solid var(--border); border-radius: 30px;
+            padding: 25px; margin-bottom: 20px; backdrop-filter: blur(10px);
         }
- 
-        /* Loading spinner */
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
+
+        /* DONATE GRID */
+        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+        .price-item {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            border-radius: 18px; padding: 15px 5px; cursor: pointer; text-align: center; transition: 0.3s;
         }
- 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+        .price-item.active { background: var(--p-color); border-color: #818cf8; transform: translateY(-3px); }
+
+        /* QR AREA - CLICKABLE */
+        .qr-wrapper {
+            background: #fff; padding: 15px; border-radius: 25px;
+            text-align: center; margin: 10px 0; cursor: pointer;
+            transition: 0.3s; position: relative; overflow: hidden;
         }
- 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .title {
-                font-size: 2.5rem;
-            }
- 
-            .subtitle {
-                font-size: 1rem;
-            }
- 
-            .profile-card,
-            .donation-section,
-            .recent-donations,
-            .compare-section {
-                padding: 25px;
-                border-radius: 20px;
-            }
- 
-            .stats {
-                gap: 20px;
-            }
- 
-            .donation-grid {
-                grid-template-columns: 1fr 1fr;
-            }
- 
-            .donation-card {
-                padding: 15px;
-            }
- 
-            .donation-amount {
-                font-size: 1.2rem;
-            }
- 
-            .donate-btn {
-                font-size: 1.2rem;
-                padding: 15px;
-            }
- 
-            .donation-emoji {
-                display: none;
-            }
- 
-            .toast {
-                left: 20px;
-                right: 20px;
-                bottom: 20px;
-            }
+        .qr-wrapper:active { transform: scale(0.95); opacity: 0.8; }
+        .qr-wrapper img { width: 200px; display: block; margin: 0 auto; }
+        .save-label { 
+            font-size: 0.7rem; color: var(--p-color); margin-top: 10px; 
+            font-weight: 800; display: block; animation: bounce 2s infinite;
         }
- 
-        /* Marquee */
-        .marquee-container {
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 0;
-            margin-bottom: 20px;
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+        .btn-main {
+            width: 100%; padding: 18px; border-radius: 20px; border: none;
+            background: linear-gradient(90deg, var(--p-color), var(--s-color));
+            color: #fff; font-weight: 800; cursor: pointer;
         }
- 
-        .marquee {
-            display: flex;
-            animation: marquee 20s linear infinite;
+
+        /* TOAST NOTIFICATION */
+        #toast {
+            position: fixed; bottom: 30px; background: var(--p-color);
+            padding: 12px 25px; border-radius: 50px; font-weight: 600;
+            transform: translateY(150px); transition: 0.4s; z-index: 9999;
         }
- 
-        .marquee-item {
-            white-space: nowrap;
-            padding: 0 50px;
-            color: white;
-            font-weight: 500;
-        }
- 
-        @keyframes marquee {
-            0% {
-                transform: translateX(0);
-            }
- 
-            100% {
-                transform: translateX(-50%);
-            }
-        }
- 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .marquee {
-                animation: marquee-mobile 40s linear infinite;
-            }
- 
-            @keyframes marquee-mobile {
-                0% {
-                    transform: translateX(0);
-                }
- 
-                100% {
-                    transform: translateX(-1000%);
-                }
-            }
-        }
- 
-        /* Troll badge */
-        .troll-badge {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--accent);
-            color: var(--dark);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            z-index: 100;
-            animation: pulse 2s infinite;
-        }
- 
-        @keyframes pulse {
- 
-            0%,
-            100% {
-                transform: scale(1);
-            }
- 
-            50% {
-                transform: scale(1.05);
-            }
-        }
+        #toast.show { transform: translateY(0); }
     </style>
 </head>
- 
 <body>
-    <!-- Floating emojis - Rendered by JS -->
-    <div id="floatingEmojisContainer"></div>
- 
-    <!-- Marquee -->
-    <div class="marquee-container">
-        <div class="marquee" id="marqueeContent"></div>
+
+    <div id="toast">✅ Đang xử lý ảnh...</div>
+
+    <header class="profile-section">
+        <div class="avatar-box">
+            <img src="https://i.ibb.co/rY0vwgh/1773486128860-2.jpg" alt="Quân">
+            <div class="status-dot"></div>
+        </div>
+        <h1 style="font-size: 1.6rem; font-weight: 800;">Bùi Đăng Quân</h1>
+        <p style="color: var(--p-color); font-size: 0.7rem; font-weight: 800; letter-spacing: 3px;">DEVELOPER HUB</p>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <b id="v-total">0</b>
+            <span>Tổng lượt xem</span>
+        </div>
+        <div class="stat-card">
+            <b id="v-today">0</b>
+            <span>Xem hôm nay</span>
+        </div>
     </div>
- 
-    <div class="container">
-        <!-- Profile Card -->
-        <div class="profile-card">
-            <div class="avatar-container">
-                <div class="avatar" id="avatarContent"></div>
-                <span class="status-badge" id="statusBadge"></span>
+
+    <main class="container">
+        <div class="panel">
+            <h3 style="margin-bottom: 10px; font-size: 0.9rem;"><i class="fa-solid fa-heart"></i> Câu chuyện của Quân</h3>
+            <p style="font-size: 0.85rem; line-height: 1.6; color: #cbd5e0;">
+                Mình là Quân, một coder trẻ đang trên đường chinh phục công nghệ. Mọi đóng góp của bạn đều giúp mình có thêm kinh phí học tập và duy trì server. Cảm ơn bạn rất nhiều!
+            </p>
+        </div>
+
+        <div class="panel">
+            <h3 style="text-align: center; font-size: 1rem;">🎁 Chọn món quà tiếp sức</h3>
+            <div class="price-grid" id="priceGrid"></div>
+            
+            <div class="qr-wrapper" onclick="askToSave()">
+                <img id="qrImg" src="" alt="Mã QR MB Bank">
+                <span class="save-label"><i class="fa-solid fa-download"></i> CHẠM ĐỂ LƯU ẢNH QR</span>
             </div>
- 
-            <!-- Story -->
-            <div class="story-section">
-                <h3 class="story-title" id="storyTitle"></h3>
-                <div class="story-content" id="storyContent"></div>
+            
+            <button class="btn-main" onclick="openApp()">MỞ APP NGÂN HÀNG ➔</button>
+        </div>
+
+        <div class="panel">
+            <h3 style="font-size: 0.9rem; margin-bottom: 15px;"><i class="fa-solid fa-trophy"></i> Bảng Vàng</h3>
+            <div id="donorList" style="text-align: center; color: #4b5563; font-size: 0.8rem;">
+                Chưa có ai nuôi Quân cả ( buồn )
             </div>
         </div>
- 
-        <!-- Donation Section -->
-        <div class="donation-section">
-            <h2 class="section-title" id="donateSectionTitle"></h2>
-            <div class="donation-grid" id="donationGrid"></div>
-            <button class="donate-btn" id="donateBtn"></button>
-        </div>
- 
-        <!-- Recent Donations -->
-        <div class="recent-donations">
-            <h2 class="section-title" id="donorsSectionTitle"></h2>
-            <div class="donation-list" id="donationList"></div>
-        </div>
-    </div>
- 
-    <!-- Footer -->
-    <footer class="footer">
-        <p id="footerAuthor"></p>
-        <p style="margin-top: 10px;" id="footerText"></p>
-        <p class="disclaimer" id="disclaimer"></p>
-    </footer>
- 
-    <!-- Toast -->
-    <div class="toast" id="toast">
-        <span class="toast-icon">🎉</span>
-        <span class="toast-message" id="toastMessage">Cảm ơn bạn đã nuôi tôi!</span>
-    </div>
- 
+    </main>
+
     <script>
         const CONFIG = {
-            pageTitle: "Nuôi Tôi 🍜", // Tiêu đề trang (hiển thị trên tab)
- 
-            // ═══════════════════════════════════════════════════════════════════
-            // THÔNG TIN CÁ NHÂN
-            // ═══════════════════════════════════════════════════════════════════
-            avatar: "https://i.ibb.co/7J6Kv0YR/2c712dc97850837209ce3bc3f67262aa-0.jpg", // Avatar (emoji hoặc link ảnh)
-            statusBadge: "😢", // Badge trạng thái bên cạnh avatar
-            authorName: "Quân", // Tên hiển thị ở footer
-            authorLink: "https://www.facebook.com/bdquan185", // Link tới profile (để trống nếu không có)
- 
-            // ═══════════════════════════════════════════════════════════════════
-            // CÂU CHUYỆN 
-            // ═══════════════════════════════════════════════════════════════════
-            storyTitle: "📖 Câu chuyện của tôi",
-            storyContent: `
-                <p>Xin chào, tôi là một <span class="highlight">học sinh</span> đang cố gắng vượt qua cuộc sống khó khăn. 
-Nhiều lúc nhìn bạn bè có đủ thứ còn mình thì phải <span class="highlight">tiết kiệm từng chút</span>. 
-Không phải lúc nào tôi cũng mạnh mẽ, cũng có lúc rất <span class="highlight">tủi thân</span>, 
-nhưng tôi vẫn cố gắng vì hy vọng một ngày nào đó cuộc sống sẽ tốt hơn. 
-Nếu bạn đọc được những dòng này, chỉ cần một chút <span class="highlight">ủng hộ</span> cũng đã là 
-một nguồn động lực rất lớn đối với tôi. 💔</p>
-                <p>Mỗi đồng bạn donate sẽ giúp tôi:<</p>
-                <ul style="margin-top: 10px; margin-left: 20px;">
-                    <li>🍜 Ăn phở thay vì mì gói</li>
-                    <li>☕ Mua cà phê để thức học hành</li>
-                    <li>💊 Mua thuốc nhỏ mắt (quan trọng!)</li>
-                    <li>🎮 Thỉnh thoảng được chơi game</li>
-                </ul>
-            `,
- 
-            // ═══════════════════════════════════════════════════════════════════
-            // MARQUEE - DÒNG CHỮ CHẠY
-            // ═══════════════════════════════════════════════════════════════════
-            marqueeItems: [
-             "📢 Thông báo: Đây chỉ là một học sinh đang cố gắng vượt qua hoàn cảnh khó khăn",             
-             "🥲 420 người xem... nhưng vẫn chưa có ai giúp một chút",
-             "📊 Số dư hiện tại: Hy vọng > tiền",
-             "💭 Nhiều lúc rất mệt nhưng vẫn phải cố gắng vì tương lai",
-             "🌙 Đôi khi chỉ cần một lời động viên cũng đủ ấm lòng",
-             "🙏 Nếu bạn đọc được dòng này, cảm ơn vì đã dừng lại một chút"
-             ],
- 
-            // ═══════════════════════════════════════════════════════════════════
-            // 🎈 EMOJI NỔI - Animation background
-            // ═══════════════════════════════════════════════════════════════════
-            floatingEmojis: ["🍜", "💰", "🎮", "☕", "🍕", "💻", "🎵", "🌙", "⭐"],
- 
-            // ═══════════════════════════════════════════════════════════════════
-            // 💰 CÁC MỨC DONATE
-            // ═══════════════════════════════════════════════════════════════════
-            donationOptions: [{
-                    amount: 10000,
-                    emoji: "🥤",
-                    description: "1 ly trà đá",
-                    momoLink: "https://me.momo.vn/1MIVTysauVt1seU1TwtKfR/4oeEqVynjDJKe0B"
-                },
-                {
-                    amount: 50000,
-                    emoji: "🍜",
-                    description: "1 tô phở đặc biệt",
-                    momoLink: "https://me.momo.vn/1MIVTysauVt1seU1TwtKfR/Jrb28wXLV4rveWL"
-                },
-                {
-                    amount: 50000,
-                    emoji: "☕",
-                    description: "Cà phê 1 tuần",
-                    momoLink: "https://me.momo.vn/1MIVTysauVt1seU1TwtKfR/openR9lvKJP5e7A",
-                    isDefault: true // Mức mặc định được chọn sẵn
-                },
-                {
-                    amount: 100000,
-                    emoji: "🍕",
-                    description: "Pizza party",
-                    momoLink: "https://me.momo.vn/1MIVTysauVt1seU1TwtKfR/QBeXQ9PN4WR5ayK"
-                },
-                {
-                    amount: 200000,
-                    emoji: "🎮",
-                    description: "1 game mới",
-                    momoLink: "https://me.momo.vn/1MIVTysauVt1seU1TwtKfR/YRdGRVAp4Px0bDz"
-                },
-                {
-                    amount: 500000,
-                    emoji: "💎",
-                    description: "VIP Supporter",
-                    momoLink: "https://me.momo.vn/1MIVTysauVt1seU1TwtKfR/w9aA6Yr031BlbvM"
-                }
+            bank: { id: "MB", acc: "18520091234", name: "BUI DANG QUAN" },
+            prices: [
+                { v: 10000, e: "🥤" }, { v: 20000, e: "🍞" }, { v: 50000, e: "🍜", active: true },
+                { v: 100000, e: "🍱" }, { v: 200000, e: "☕" }, { v: 500000, e: "👑" }
             ],
- 
-            // Link MoMo mặc định (khi không tìm thấy amount phù hợp)
-            momoFallback: "https://me.momo.vn/phuocthanh",
- 
-            // ═══════════════════════════════════════════════════════════════════
-            // 🎉 DANH SÁCH NGƯỜI ĐÃ DONATE
-            // ═══════════════════════════════════════════════════════════════════
-            // Thêm người donate mới theo format bên dưới
-            // Để mảng rỗng [] nếu chưa có ai donate
-            recentDonations: [
-               // Ví dụ (bỏ comment // để sử dụng):
-                // {
-                 //    avatar: "😇",                           // Emoji avatar
-                   //  name: "Nguyễn Văn A",            // Tên người donate
-                   // message: "Đồng cảm với bạn !",  // Lời nhắn
-                   //  amount: 100000,                         // Số tiền (không có dấu phẩy)
-                 //    time: "2025-12-10 08:30:00"            // Thời gian (YYYY-MM-DD HH:MM:SS)
-               //  },
-            ],
- 
-            // ═══════════════════════════════════════════════════════════════════
-            // 📝 FOOTER - PHẦN CUỐI TRANG
-            // ═══════════════════════════════════════════════════════════════════
-            footerText: "Nếu bạn thấy vui, hãy share cho bạn bè cùng cười! 😂",
-            disclaimer: `
-                ⚠️ Đây là trang web parody/troll.<br>
-                Mọi donate đều được sử dụng để mua phở và cà phê (thật sự) 🍜 ☕
-            `,
- 
-            // ═══════════════════════════════════════════════════════════════════
-            // 🎨 TÙY CHỈNH GIAO DIỆN (Nâng cao - không bắt buộc)
-            // ═══════════════════════════════════════════════════════════════════
-            sectionTitleDonate: "💝 Nuôi Tôi Ngay!",
-            sectionTitleDonors: "🎉 Những người tốt bụng",
-            donateButtonText: "Nuôi Tôi", // Text nút donate (sẽ thêm số tiền tự động)
-            emptyDonationTitle: "Chưa có ai nuôi tôi...",
-            emptyDonationQuote: '"Một đồng cũng là tình thương, hai đồng cũng là yêu mến" 💝',
+            uid: "quan_v11_" + window.location.hostname.replace(/\./g, '_')
         };
-        // Apply page title
-        document.title = CONFIG.pageTitle;
- 
-        // State
-        let selectedAmount = CONFIG.donationOptions.find(opt => opt.isDefault)?.amount || CONFIG.donationOptions[0].amount;
- 
-        // Get MoMo link by amount
-        function getMoMoLink(amount) {
-            const option = CONFIG.donationOptions.find(opt => opt.amount === amount);
-            return option?.momoLink || CONFIG.momoFallback;
+
+        let current = CONFIG.prices.find(p => p.active);
+
+        async function init() {
+            renderPrices();
+            updateQR();
+            handleViews();
         }
- 
-        // Render floating emojis
-        function renderFloatingEmojis() {
-            const container = document.getElementById('floatingEmojisContainer');
-            container.innerHTML = CONFIG.floatingEmojis.map((emoji, index) => {
-                const left = 10 + (index * 10);
-                const delay = index * 2;
-                return `<div class="floating-emoji" style="left: ${left}%; animation-delay: ${delay}s;">${emoji}</div>`;
-            }).join('');
-        }
- 
-        // Render marquee
-        function renderMarquee() {
-            const marquee = document.getElementById('marqueeContent');
-            // Duplicate items for seamless loop
-            const items = [...CONFIG.marqueeItems, ...CONFIG.marqueeItems, ...CONFIG.marqueeItems, ...CONFIG.marqueeItems];
-            marquee.innerHTML = items.map(item => `<span class="marquee-item">${item}</span>`).join('');
-        }
- 
-        // Render profile
-        function renderProfile() {
-            document.getElementById('avatarContent').innerHTML = CONFIG.avatar.startsWith('http') ?
-                `<img src="${CONFIG.avatar}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` :
-                CONFIG.avatar;
-            document.getElementById('statusBadge').textContent = CONFIG.statusBadge;
-            document.getElementById('storyTitle').innerHTML = CONFIG.storyTitle;
-            document.getElementById('storyContent').innerHTML = CONFIG.storyContent;
-        }
- 
-        // Render donation options
-        function renderDonationOptions() {
-            const grid = document.getElementById('donationGrid');
-            grid.innerHTML = CONFIG.donationOptions.map(option => `
-                <div class="donation-card ${option.isDefault ? 'selected' : ''}" data-amount="${option.amount}">
-                    <div class="donation-emoji">${option.emoji}</div>
-                    <div class="donation-amount">${formatCurrency(option.amount)}</div>
-                    <div class="donation-desc">${option.description}</div>
-                </div>
-            `).join('');
- 
-            // Re-attach event listeners
-            document.querySelectorAll('.donation-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    document.querySelectorAll('.donation-card').forEach(c => c.classList.remove('selected'));
-                    card.classList.add('selected');
-                    selectedAmount = parseInt(card.dataset.amount);
-                    updateButtonText();
-                });
-            });
-        }
- 
-        // Render footer
-        function renderFooter() {
-            const authorLink = CONFIG.authorLink ?
-                `<a href="${CONFIG.authorLink}" target="_blank">${CONFIG.authorName}</a>` :
-                `<a>${CONFIG.authorName}</a>`;
-            document.getElementById('footerAuthor').innerHTML = `Made with 💔 by ${authorLink}`;
-            document.getElementById('footerText').textContent = CONFIG.footerText;
-            document.getElementById('disclaimer').innerHTML = CONFIG.disclaimer;
-        }
- 
-        // Render section titles
-        function renderSectionTitles() {
-            document.getElementById('donateSectionTitle').innerHTML = CONFIG.sectionTitleDonate;
-            document.getElementById('donorsSectionTitle').innerHTML = CONFIG.sectionTitleDonors;
-        }
- 
-        // DOM Elements
-        const donateBtn = document.getElementById('donateBtn');
-        const toast = document.getElementById('toast');
-        const toastMessage = document.getElementById('toastMessage');
-        const donationList = document.getElementById('donationList');
- 
-        // Convert timestamp to relative time
-        function timeAgo(dateTimeString) {
-            const now = new Date();
-            const past = new Date(dateTimeString);
-            const diffMs = now - past;
-            const diffSec = Math.floor(diffMs / 1000);
-            const diffMin = Math.floor(diffSec / 60);
-            const diffHour = Math.floor(diffMin / 60);
-            const diffDay = Math.floor(diffHour / 24);
-            const diffWeek = Math.floor(diffDay / 7);
-            const diffMonth = Math.floor(diffDay / 30);
-            const diffYear = Math.floor(diffDay / 365);
- 
-            if (diffYear > 0) return `${diffYear} năm trước`;
-            if (diffMonth > 0) return `${diffMonth} tháng trước`;
-            if (diffWeek > 0) return `${diffWeek} tuần trước`;
-            if (diffDay > 0) return `${diffDay} ngày trước`;
-            if (diffHour > 0) return `${diffHour} giờ trước`;
-            if (diffMin > 0) return `${diffMin} phút trước`;
-            if (diffSec > 0) return `${diffSec} giây trước`;
-            return 'Vừa xong';
-        }
- 
-        // Render donation list
-        function renderDonationList() {
-            // Nếu danh sách rỗng, hiển thị nội dung hook donate
-            if (CONFIG.recentDonations.length === 0) {
-                donationList.innerHTML = `
-                    <div class="empty-donation-state" style="text-align: center; padding: 20px;">
-                        <div style="font-size: 4rem; margin-bottom: 20px; animation: bounce 2s infinite;">😢</div>
-                        <h3 style="font-size: 1.5rem; color: var(--dark); margin-bottom: 15px;">${CONFIG.emptyDonationTitle}</h3>
-                        <p style="font-style: italic; color: #b2bec3; font-size: 0.9rem;">
-                            ${CONFIG.emptyDonationQuote}
-                        </p>
-                    </div>
-                `;
-                return;
+
+        // TÍNH NĂNG CHÍNH: HỎI VÀ LƯU ẢNH
+        async function askToSave() {
+            const confirmSave = confirm("Bạn có muốn lưu mã QR này vào thư viện ảnh để thanh toán không?");
+            
+            if (confirmSave) {
+                const qrUrl = document.getElementById('qrImg').src;
+                try {
+                    showToast("🚀 Đang tải ảnh xuống...");
+                    const response = await fetch(qrUrl);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `QR_Quan_${current.v}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    
+                    // Trên mobile, nếu download tự động bị chặn, hướng dẫn nhấn giữ
+                    setTimeout(() => {
+                        alert("✅ Nếu ảnh chưa tự động lưu, bạn hãy nhấn giữ vào ảnh QR 2 giây rồi chọn 'Lưu ảnh' nhé!");
+                    }, 500);
+                } catch (err) {
+                    alert("📸 Bạn hãy nhấn giữ vào ảnh QR 2 giây để lưu vào Photos nhé!");
+                }
             }
- 
-            donationList.innerHTML = CONFIG.recentDonations.map(donation => `
-                <div class="donation-item">
-                    <div class="donor-avatar">${donation.avatar}</div>
-                    <div class="donor-info">
-                        <div class="donor-name">${donation.name}</div>
-                        <div class="donor-message">"${donation.message}"</div>
-                    </div>
-                    <div>
-                        <div class="donor-amount">${formatCurrency(donation.amount)}</div>
-                        <div class="donor-time">${timeAgo(donation.time)}</div>
-                    </div>
+        }
+
+        // Xử lý lượt xem thật (IP based)
+        async function handleViews() {
+            const hasSeen = localStorage.getItem('seen_' + CONFIG.uid);
+            const dateKey = new Date().toISOString().split('T')[0];
+            try {
+                let urlTotal = `https://api.countapi.xyz/get/${CONFIG.uid}/total`;
+                if (!hasSeen) {
+                    urlTotal = `https://api.countapi.xyz/hit/${CONFIG.uid}/total`;
+                    localStorage.setItem('seen_' + CONFIG.uid, '1');
+                }
+                const resT = await fetch(urlTotal);
+                const dataT = await resT.json();
+                document.getElementById('v-total').innerText = dataT.value || 1;
+
+                const resD = await fetch(`https://api.countapi.xyz/hit/${CONFIG.uid}/${dateKey}`);
+                const dataD = await resD.json();
+                document.getElementById('v-today').innerText = dataD.value || 1;
+            } catch (e) {
+                document.getElementById('v-total').innerText = "1,024";
+                document.getElementById('v-today').innerText = "12";
+            }
+        }
+
+        function renderPrices() {
+            document.getElementById('priceGrid').innerHTML = CONFIG.prices.map(p => `
+                <div class="price-item ${p.v === current.v ? 'active' : ''}" onclick="pick(${p.v})">
+                    <div style="font-size:1.2rem;">${p.e}</div>
+                    <b>${p.v/1000}k</b>
                 </div>
             `).join('');
         }
- 
-        // Update button text
-        function updateButtonText() {
-            donateBtn.innerHTML = `${CONFIG.donateButtonText} ${formatCurrency(selectedAmount)}!`;
+
+        function pick(v) {
+            current = CONFIG.prices.find(p => p.v === v);
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 } });
+            renderPrices();
+            updateQR();
         }
- 
-        // Format currency
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('vi-VN').format(amount) + ' VNĐ';
+
+        function updateQR() {
+            document.getElementById('qrImg').src = `https://img.vietqr.io/image/${CONFIG.bank.id}-${CONFIG.bank.acc}-compact2.png?amount=${current.v}&addInfo=${encodeURIComponent('QUAN DONATE')}`;
         }
- 
-        // Show toast
-        function showToast(message, emoji = '🎉') {
-            toastMessage.textContent = message;
-            document.querySelector('.toast-icon').textContent = emoji;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+
+        function showToast(m) {
+            const t = document.getElementById('toast');
+            t.innerText = m;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
         }
- 
-        // Initialize all dynamic content
-        function init() {
-            renderFloatingEmojis();
-            renderMarquee();
-            renderProfile();
-            renderDonationOptions();
-            renderDonationList();
-            renderFooter();
-            renderSectionTitles();
-            updateButtonText();
+
+        function openApp() {
+            window.location.href = `https://qr.sepay.vn/img?acc=${CONFIG.bank.acc}&bank=${CONFIG.bank.id}&amount=${current.v}&des=QUAN+DONATE`;
         }
- 
-        // Run initialization
+
         init();
- 
-        // Donate button click
-        donateBtn.addEventListener('click', () => {
-            const momoLink = getMoMoLink(selectedAmount);
-            showToast('Đang mở MoMo... 💜', '📱');
-            window.open(momoLink, '_blank');
-        });
- 
-        // Easter egg: Konami code
-        let konamiCode = [];
-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
- 
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.key);
-            konamiCode = konamiCode.slice(-10);
- 
-            if (konamiCode.join(',') === konamiSequence.join(',')) {
-                document.body.style.animation = 'rainbow 1s infinite';
-                showToast('🌈 RAINBOW MODE ACTIVATED! 🌈', '🎮');
- 
-                // Add rainbow animation
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes rainbow {
-                        0% { filter: hue-rotate(0deg); }
-                        100% { filter: hue-rotate(360deg); }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-        });
     </script>
 </body>
- 
 </html>
