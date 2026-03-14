@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bùi Đăng Quân | Dashboard</title>
+    <title>Bùi Đăng Quân | Dashboard v25</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -30,7 +30,7 @@
         /* GOAL */
         .goal-header { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; margin-bottom: 8px; }
         .progress-container { width: 100%; height: 12px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--p-color), var(--t-color)); transition: width 1.5s ease; }
+        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--p-color), var(--t-color)); transition: width 1.5s ease-in-out; }
 
         /* STATS */
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
@@ -40,14 +40,13 @@
 
         /* QR AREA */
         .qr-wrapper { background: #fff; padding: 20px; border-radius: 25px; text-align: center; margin: 10px 0; color: #1a1a1a; }
-        .qr-info-box { border-bottom: 1px dashed #ccc; margin-bottom: 12px; padding-bottom: 10px; }
-        .qr-info-box div { font-size: 0.75rem; font-weight: 800; }
-        .qr-info-box b { color: var(--p-color); }
+        .qr-info-header { border-bottom: 1px dashed #ccc; margin-bottom: 12px; padding-bottom: 10px; }
+        .qr-info-header div { font-size: 0.75rem; font-weight: 800; }
         .big-amt { font-size: 1.2rem; color: var(--s-color); font-weight: 900; margin-top: 5px; display: block; }
         .qr-wrapper img { width: 180px; display: block; margin: 0 auto; border-radius: 10px; }
 
         .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 0; }
-        .price-item { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 12px 5px; cursor: pointer; text-align: center; transition: 0.2s; }
+        .price-item { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 12px 5px; cursor: pointer; text-align: center; }
         .price-item.active { background: var(--p-color); transform: scale(1.05); }
 
         #momoBtn { width: 100%; padding: 16px; border-radius: 15px; border: none; background: var(--momo-color); color: #fff; font-weight: 800; cursor: pointer; }
@@ -65,14 +64,14 @@
             <img src="https://i.ibb.co/gZvn2jXg/2c712dc97850837209ce3bc3f67262aa-0.jpg" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <h1 style="font-size: 1.4rem; font-weight: 800;">Bùi Đăng Quân</h1>
-        <p style="color: var(--p-color); font-size: 0.6rem; font-weight: 800; letter-spacing: 2px;">SEPAY AUTOMATION LIVE</p>
+        <p style="color: var(--p-color); font-size: 0.6rem; font-weight: 800; letter-spacing: 2px;">LIVE DONATE - SEPAY FIX</p>
     </header>
 
     <main class="container">
         <div class="panel">
             <div class="goal-header"><span>MỤC TIÊU 10 TRIỆU</span><span id="goalPercent">0%</span></div>
             <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
-            <div style="text-align: center; font-size: 0.65rem; margin-top: 8px;">Đã nhận: <b id="totalReceived">0đ</b></div>
+            <div style="text-align: center; font-size: 0.65rem; margin-top: 8px;">Đã tích lũy: <b id="totalReceived">0đ</b></div>
         </div>
 
         <div class="stats-grid">
@@ -81,14 +80,14 @@
         </div>
 
         <div class="panel">
-            <input type="number" id="customAmount" placeholder="Nhập số tiền..." oninput="handleCustomInput()" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #fff; text-align: center; margin-bottom: 10px; font-weight: 800; outline: none;">
+            <h3 style="text-align: center; font-size: 0.9rem; margin-bottom: 15px;">🎁 Tiếp sức cho Quân</h3>
             <div class="price-grid" id="priceGrid"></div>
             
             <div class="qr-wrapper">
-                <div class="qr-info-box">
+                <div class="qr-info-header">
                     <div>CTK: <b>BUI DANG QUAN</b></div>
                     <div>STK: <b>18520091234</b> (MB Bank)</div>
-                    <span class="big-amt" id="amtDisplay">0đ</span>
+                    <span class="big-amt" id="amtDisplay">50,000 VNĐ</span>
                 </div>
                 <img id="qrImg" src="">
                 <p style="font-size: 0.65rem; color: #64748b; font-weight: 800; margin-top: 10px;">NỘI DUNG: <span style="color: var(--s-color);">UNG HO QUAN</span></p>
@@ -97,14 +96,15 @@
         </div>
 
         <div class="panel">
-            <h3 style="font-size: 0.8rem; margin-bottom: 12px;"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> BẢNG VÀNG MỚI NHẤT</h3>
-            <div id="donorList"><div style="text-align: center; color: #4b5563; font-size: 0.7rem;">Đang kết nối SePay...</div></div>
+            <h3 style="font-size: 0.8rem; margin-bottom: 12px;"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> BẢNG VÀNG</h3>
+            <div id="donorList"><div style="text-align: center; color: #4b5563; font-size: 0.7rem;">Đang tải từ SePay...</div></div>
         </div>
     </main>
 
     <script>
         const CONFIG = {
-            stk: "18520091234", bank: "MBBank",
+            stk: "18520091234", 
+            bank: "MBBank",
             sepay_key: 'PCEGWXWT5SLHPOV7PRZFOBRHYGOIU0LDEUUFIQBLH9FASKWYQTA3RKPEMK09YM3N',
             goal: 10000000,
             prices: [
@@ -117,29 +117,46 @@
 
         async function fetchData() {
             try {
-                const res = await fetch(`https://my.sepay.vn/api/transactions/list`, {
+                // Giải pháp Proxy để tránh lỗi CORS trên Vercel/Chrome Mobile
+                const proxy = "https://api.allorigins.win/get?url=";
+                const target = encodeURIComponent("https://my.sepay.vn/api/transactions/list");
+                
+                const response = await fetch(`${proxy}${target}`, {
                     headers: { 'Authorization': `Bearer ${CONFIG.sepay_key}` }
                 });
-                const data = await res.json();
-                
-                if (data.status === 200) {
-                    // FIX MẠNH: Lấy tất cả giao dịch có chữ QUAN hoặc UNG HO
+
+                const raw = await response.json();
+                const data = JSON.parse(raw.contents); // AllOrigins trả về string trong field contents
+
+                if (data.messages) {
                     const trans = data.messages.filter(t => {
                         const content = (t.content || "").toUpperCase();
                         return content.includes("QUAN") || content.includes("UNG HO");
                     });
 
                     const totalSum = trans.reduce((s, t) => s + parseInt(t.amount), 0);
-                    
-                    // Tính hôm nay chuẩn hơn
-                    const todayStr = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD
+                    const todayStr = new Date().toLocaleDateString('en-CA'); 
                     const dailyTrans = trans.filter(t => t.transaction_date.includes(todayStr));
                     const dailySum = dailyTrans.reduce((s, t) => s + parseInt(t.amount), 0);
 
                     updateUI(dailySum, totalSum, trans.length, trans);
                 }
             } catch (e) {
-                document.getElementById('donorList').innerHTML = "Lỗi kết nối API";
+                console.error("Lỗi:", e);
+                // Thử gọi trực tiếp nếu proxy lỗi
+                fetchDirect();
+            }
+        }
+
+        async function fetchDirect() {
+            try {
+                const res = await fetch(`https://my.sepay.vn/api/transactions/list`, {
+                    headers: { 'Authorization': `Bearer ${CONFIG.sepay_key}` }
+                });
+                const data = await res.json();
+                if(data.messages) updateUI(0, 0, 0, data.messages);
+            } catch(e) {
+                document.getElementById('donorList').innerHTML = "Lỗi kết nối API. Hãy kiểm tra API Key.";
             }
         }
 
@@ -154,9 +171,8 @@
 
             const container = document.getElementById('donorList');
             if (list.length === 0) {
-                container.innerHTML = '<div style="text-align: center; color: #4b5563; font-size: 0.7rem;">Chưa có giao dịch nào.</div>';
+                container.innerHTML = '<div style="text-align: center; color: #4b5563; font-size: 0.7rem;">Chưa có giao dịch "QUAN" nào.</div>';
             } else {
-                // Hiện 5 giao dịch mới nhất bất kể ngày nào để check cho dễ
                 container.innerHTML = list.slice(0, 5).map(t => `
                     <div class="donor-item">
                         <div class="donor-info"><b>Người bạn tử tế</b><span>${t.transaction_date}</span></div>
@@ -185,16 +201,11 @@
             confetti({ particleCount: 40, spread: 60, origin: { y: 0.8 } });
         }
 
-        function handleCustomInput() {
-            const val = document.getElementById('customAmount').value;
-            if(val > 0) { currentVal = val; updateQR(); }
-        }
-
         function openMomo() { window.location.href = "https://me.momo.vn/bdquan1852009"; }
 
-        // Chạy ngay
+        // Start
         renderPrices(); updateQR(); fetchData();
-        setInterval(fetchData, 10000); // Check liên tục mỗi 10 giây
+        setInterval(fetchData, 15000); 
     </script>
 </body>
 </html>
