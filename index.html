@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bùi Đăng Quân | Dashboard v20</title>
+    <title>Bùi Đăng Quân | Dashboard v21</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -26,65 +26,55 @@
 
         .container { width: 100%; max-width: 480px; padding: 0 20px; }
         .profile-section { width: 100%; max-width: 500px; padding: 40px 20px 20px; text-align: center; }
-        .avatar-box { width: 100px; height: 100px; margin: 0 auto 15px; border-radius: 50%; background: linear-gradient(45deg, var(--p-color), var(--s-color)); padding: 4px; position: relative; }
+        .avatar-box { width: 90px; height: 90px; margin: 0 auto 15px; border-radius: 50%; background: linear-gradient(45deg, var(--p-color), var(--s-color)); padding: 3px; position: relative; }
         .avatar-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--bg); }
 
         .panel { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 20px; margin-bottom: 15px; backdrop-filter: blur(10px); }
 
-        /* GOAL PROGRESS */
+        /* GOAL */
         .goal-header { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; margin-bottom: 8px; }
-        .progress-container { width: 100%; height: 12px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-bottom: 5px; }
+        .progress-container { width: 100%; height: 12px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
         .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--p-color), var(--t-color)); transition: width 1.5s ease-in-out; }
-        .goal-info { font-size: 0.65rem; color: #94a3b8; text-align: center; }
 
-        /* STATS GRID */
+        /* STATS */
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
         .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 15px; text-align: center; }
         .stat-card b { display: block; font-size: 1.1rem; color: #fff; }
         .stat-card span { font-size: 0.6rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; }
 
-        /* STORY */
-        .story-content { font-size: 0.85rem; line-height: 1.6; color: #cbd5e0; }
-
-        /* PRICE GRID */
-        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 0; }
-        .price-item { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 12px 5px; cursor: pointer; text-align: center; transition: 0.2s; }
-        .price-item.active { background: var(--p-color); transform: translateY(-2px); border-color: #818cf8; }
-
-        /* QR DISPLAY WITH CTK/STK/AMOUNT */
-        .qr-wrapper { background: #fff; padding: 20px; border-radius: 25px; text-align: center; margin: 10px 0; cursor: pointer; color: #1a1a1a; }
-        .qr-info-header { border-bottom: 1px dashed #ccc; margin-bottom: 12px; padding-bottom: 10px; }
-        .qr-info-header div { font-size: 0.75rem; font-weight: 800; margin-bottom: 3px; }
-        .qr-info-header b { color: var(--p-color); }
-        .qr-info-header .big-amt { font-size: 1rem; color: var(--s-color); font-weight: 900; margin-top: 5px; display: block; }
+        /* QR BOX */
+        .qr-wrapper { background: #fff; padding: 20px; border-radius: 25px; text-align: center; margin: 10px 0; color: #1a1a1a; border: 2px solid var(--p-color); }
+        .qr-info { border-bottom: 1px dashed #ccc; margin-bottom: 12px; padding-bottom: 10px; }
+        .qr-info div { font-size: 0.75rem; font-weight: 800; margin-bottom: 3px; }
+        .big-amt { font-size: 1.1rem; color: var(--s-color); font-weight: 900; display: block; margin-top: 5px; }
         .qr-wrapper img { width: 180px; display: block; margin: 0 auto; border-radius: 10px; }
 
-        #momoBtn { width: 100%; padding: 16px; border-radius: 15px; border: none; background: var(--momo-color); color: #fff; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; }
-        #momoBtn.hidden { opacity: 0.2; pointer-events: none; filter: grayscale(1); }
+        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 0; }
+        .price-item { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 12px 5px; cursor: pointer; text-align: center; }
+        .price-item.active { background: var(--p-color); transform: scale(1.05); }
+
+        #momoBtn { width: 100%; padding: 16px; border-radius: 15px; border: none; background: var(--momo-color); color: #fff; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        #momoBtn.hidden { opacity: 0.2; pointer-events: none; }
 
         /* DONOR LIST */
-        .donor-item { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.03); padding: 10px 15px; border-radius: 15px; margin-bottom: 8px; border-left: 3px solid var(--p-color); }
+        .donor-item { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.03); padding: 10px 15px; border-radius: 15px; margin-bottom: 8px; border-left: 4px solid var(--t-color); }
         .donor-info b { font-size: 0.8rem; color: #fff; display: block; }
-        .donor-info span { font-size: 0.6rem; color: #94a3b8; }
         .donor-amount { font-weight: 800; color: var(--t-color); font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
     <header class="profile-section">
-        <div class="avatar-box"><img src="https://i.ibb.co/gZvn2jXg/2c712dc97850837209ce3bc3f67262aa-0.jpg" alt="Quân"></div>
+        <div class="avatar-box"><img src="https://i.ibb.co/gZvn2jXg/2c712dc97850837209ce3bc3f67262aa-0.jpg"></div>
         <h1 style="font-size: 1.4rem; font-weight: 800;">Bùi Đăng Quân</h1>
-        <p style="color: var(--p-color); font-size: 0.6rem; font-weight: 800; letter-spacing: 2px;">LIVE DONATION DASHBOARD</p>
+        <p style="color: var(--p-color); font-size: 0.6rem; font-weight: 800; letter-spacing: 2px;">DONATE TỰ ĐỘNG QUA SEPAY</p>
     </header>
 
     <main class="container">
         <div class="panel">
-            <div class="goal-header">
-                <span>MỤC TIÊU 10 TRIỆU</span>
-                <span id="goalPercent">0%</span>
-            </div>
+            <div class="goal-header"><span>MỤC TIÊU 10 TRIỆU</span><span id="goalPercent">0%</span></div>
             <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
-            <div class="goal-info">Đã tích lũy: <b id="totalReceived" style="color:#fff">0đ</b></div>
+            <div style="text-align: center; font-size: 0.65rem; margin-top: 8px; color: #94a3b8;">Đã tích lũy: <b id="totalReceived" style="color:#fff">0đ</b></div>
         </div>
 
         <div class="stats-grid">
@@ -93,42 +83,38 @@
         </div>
 
         <div class="panel">
-            <h3 style="font-size: 0.85rem; margin-bottom: 10px;"><i class="fa-solid fa-heart" style="color: var(--s-color);"></i> Đôi lời từ Quân</h3>
-            <div class="story-content">
-                Chào bạn, mình là Quân. Cảm ơn bạn đã ghé thăm không gian nhỏ này. Mọi sự ủng hộ từ bạn đều là niềm vui và động lực rất lớn để mình hoàn thiện bản thân hơn mỗi ngày.
-            </div>
+            <h3 style="font-size: 0.8rem; margin-bottom: 8px;"><i class="fa-solid fa-heart" style="color: var(--s-color);"></i> Đôi lời từ Quân</h3>
+            <p style="font-size: 0.85rem; line-height: 1.6; color: #cbd5e0;">Chào bạn, mình là Quân. Cảm ơn bạn đã ghé thăm. Mọi sự ủng hộ từ bạn đều là động lực rất lớn để mình hoàn thiện bản thân hơn mỗi ngày.</p>
         </div>
 
         <div class="panel">
             <h3 style="text-align: center; font-size: 0.9rem; margin-bottom: 15px;">🎁 Tiếp sức cho Quân</h3>
-            <input type="number" id="customAmount" placeholder="Số tiền lẻ (MB)..." oninput="handleCustomInput()" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #fff; text-align: center; margin-bottom: 10px; font-weight: 800; outline: none;">
+            <input type="number" id="customAmount" placeholder="Nhập số tiền tùy chỉnh..." oninput="handleCustomInput()" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #fff; text-align: center; margin-bottom: 10px; font-weight: 800; outline: none;">
             
             <div class="price-grid" id="priceGrid"></div>
             
-            <div class="qr-wrapper" onclick="askToSave()">
-                <div class="qr-info-header">
-                    <div>CTK: <b id="ctkDisplay">BUI DANG QUAN</b></div>
-                    <div>STK: <b id="stkDisplay">18520091234</b></div>
+            <div class="qr-wrapper">
+                <div class="qr-info">
+                    <div>CTK: <b>BUI DANG QUAN</b></div>
+                    <div>STK: <b>18520091234</b> (MB)</div>
                     <span class="big-amt" id="amtDisplay">0đ</span>
                 </div>
                 <img id="qrImg" src="">
-                <span style="font-size: 0.6rem; color: #64748b; font-weight: 700; margin-top: 10px; display: block;">QUÉT QR ĐỂ CHUYỂN KHOẢN MB</span>
+                <p style="font-size: 0.6rem; color: #64748b; font-weight: 800; margin-top: 10px;">NỘI DUNG: <span style="color: var(--s-color);">UNG HO QUAN</span></p>
             </div>
             
-            <button id="momoBtn" onclick="openMomo()">
-                <i class="fa-solid fa-wallet"></i> THANH TOÁN QUA MOMO
-            </button>
+            <button id="momoBtn" onclick="openMomo()"><i class="fa-solid fa-wallet"></i> MOMO</button>
         </div>
 
         <div class="panel">
-            <h3 style="font-size: 0.8rem; margin-bottom: 12px;"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> BẢNG VÀNG HÔM NAY</h3>
-            <div id="donorList"><div style="text-align: center; color: #4b5563; font-size: 0.7rem;">Đang tải...</div></div>
+            <h3 style="font-size: 0.8rem; margin-bottom: 12px;"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> BẢNG VÀNG</h3>
+            <div id="donorList"><div style="text-align: center; color: #4b5563; font-size: 0.7rem;">Đang tải dữ liệu...</div></div>
         </div>
     </main>
 
     <script>
         const CONFIG = {
-            stk: "18520091234", bank: "MBBank", ctk: "BUI DANG QUAN",
+            stk: "18520091234", bank: "MBBank",
             sepay_key: 'PCEGWXWT5SLHPOV7PRZFOBRHYGOIU0LDEUUFIQBLH9FASKWYQTA3RKPEMK09YM3N',
             goal: 10000000,
             prices: [
@@ -148,7 +134,7 @@
             renderPrices();
             updateQR();
             fetchData();
-            setInterval(fetchData, 20000);
+            setInterval(fetchData, 15000); // Check mỗi 15 giây cho nóng
         }
 
         async function fetchData() {
@@ -159,10 +145,16 @@
                 const data = await res.json();
                 if (data.status === 200) {
                     const today = new Date().toISOString().split('T')[0];
-                    const allTrans = data.messages.filter(t => t.content.toUpperCase().includes("QUAN UNG HO"));
+                    // BỘ LỌC FIX LỖI: Chỉ cần có chữ "QUAN" là nhận
+                    const allTrans = data.messages.filter(t => {
+                        const msg = t.content ? t.content.toUpperCase() : "";
+                        return msg.includes("QUAN");
+                    });
+
                     const dailyTrans = allTrans.filter(t => t.transaction_date.includes(today));
                     const dailySum = dailyTrans.reduce((s, t) => s + parseInt(t.amount), 0);
                     const totalSum = allTrans.reduce((s, t) => s + parseInt(t.amount), 0);
+                    
                     updateUI(dailySum, totalSum, allTrans.length, dailyTrans);
                 }
             } catch (e) { console.error("API Error"); }
@@ -177,7 +169,7 @@
             document.getElementById('goalPercent').innerText = Math.round(percent) + "%";
             const container = document.getElementById('donorList');
             if (dailyList.length === 0) {
-                container.innerHTML = '<div style="text-align: center; color: #4b5563; font-size: 0.7rem;">Hôm nay chưa có ai nè...</div>';
+                container.innerHTML = '<div style="text-align: center; color: #4b5563; font-size: 0.7rem;">Chưa có giao dịch "QUAN" nào hôm nay.</div>';
             } else {
                 container.innerHTML = dailyList.slice(0, 5).map(t => `
                     <div class="donor-item">
@@ -189,10 +181,9 @@
         }
 
         function updateQR() {
-            document.getElementById('qrImg').src = `https://qr.sepay.vn/img?acc=${CONFIG.stk}&bank=${CONFIG.bank}&amount=${currentVal}&des=QUAN UNG HO`;
+            // Fix QR nội dung chuẩn
+            document.getElementById('qrImg').src = `https://qr.sepay.vn/img?acc=${CONFIG.stk}&bank=${CONFIG.bank}&amount=${currentVal}&des=UNG HO QUAN`;
             document.getElementById('amtDisplay').innerText = parseInt(currentVal).toLocaleString() + " VNĐ";
-            document.getElementById('stkDisplay').innerText = CONFIG.stk;
-            document.getElementById('ctkDisplay').innerText = CONFIG.ctk;
         }
 
         function renderPrices() {
@@ -209,7 +200,7 @@
             document.getElementById('customAmount').value = "";
             document.getElementById('momoBtn').classList.remove('hidden');
             renderPrices(); updateQR();
-            confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } });
+            confetti({ particleCount: 40, spread: 50 });
         }
 
         function handleCustomInput() {
@@ -222,7 +213,6 @@
         }
 
         function openMomo() { window.location.href = currentMomoLink; }
-        function askToSave() { if(confirm("Lưu mã QR này?")) { const a = document.createElement('a'); a.href = document.getElementById('qrImg').src; a.download="QR_Quan.png"; a.click(); } }
 
         init();
     </script>
