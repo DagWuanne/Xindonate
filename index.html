@@ -13,23 +13,15 @@
         body { background: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%); }
         .container { width: 100%; max-width: 450px; }
         
-        /* AVATAR */
         .avatar-box { width: 90px; height: 90px; margin: 0 auto 15px; position: relative; padding: 4px; border-radius: 50%; background: linear-gradient(45deg, #ff0000, #48ff00, #002bff, #ff0000); background-size: 400%; animation: moveGradient 5s linear infinite; }
         @keyframes moveGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .avatar-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg); }
 
         .panel { background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 20px; margin-bottom: 15px; backdrop-filter: blur(10px); }
-        
-        /* TIẾN ĐỘ */
-        .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .stat-item { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px; text-align: center; }
-
-        /* QR */
-        .qr-wrapper { background: #fff; padding: 15px; border-radius: 20px; text-align: center; margin: 15px 0; transition: 0.3s; }
+        .qr-wrapper { background: #fff; padding: 15px; border-radius: 20px; text-align: center; margin: 15px 0; }
         .qr-wrapper img { width: 100%; max-width: 160px; }
 
-        /* BẢNG VÀNG */
-        .status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .dot { width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; }
         .dot.active { background: var(--t-color); box-shadow: 0 0 10px var(--t-color); }
         .dot.loading { background: #f59e0b; animation: pulse 1s infinite; }
@@ -37,9 +29,8 @@
 
         .donor-row { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--t-color); animation: slideUp 0.4s ease forwards; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
+        
         button { width:100%; padding:15px; border-radius:15px; border:none; background:#a50064; color:#fff; font-weight:800; cursor:pointer; transition: 0.3s; }
-        button:active { transform: scale(0.98); }
         .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
         .price-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px; cursor: pointer; text-align: center; font-size: 0.9rem; }
         .price-item.active { background: var(--p-color); border-color: var(--p-color); }
@@ -60,7 +51,7 @@
             <div style="height: 10px; background: rgba(255,255,255,0.05); border-radius: 10px; margin: 10px 0; overflow: hidden;">
                 <div id="bar" style="height: 100%; background: linear-gradient(90deg, var(--p-color), #a855f7); width: 0%; transition: 2s ease-out;"></div>
             </div>
-            <div class="stats-row">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
                 <div class="stat-item"><span>Hôm nay</span><br><b id="todayAmt">0đ</b></div>
                 <div class="stat-item"><span>Tổng lượt</span><br><b id="donorCount">0</b></div>
             </div>
@@ -83,21 +74,21 @@
         </div>
 
         <div class="panel">
-            <div class="status-header">
-                <h3 style="font-size: 0.9rem;"><i class="fa-solid fa-crown" style="color:#fbbf24"></i> BẢNG VÀNG</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="font-size: 0.9rem;">🏆 BẢNG VÀNG</h3>
                 <div style="display: flex; align-items: center; gap: 5px; font-size: 0.6rem; font-weight: 800; color: #94a3b8;">
                     <div id="dot" class="dot"></div> <span id="stt">ĐANG KẾT NỐI</span>
                 </div>
             </div>
-            <div id="list" style="font-size: 0.8rem; text-align: center; color: #64748b; min-height: 50px; display: flex; align-items: center; justify-content: center;">
-                Đang tải dữ liệu từ Google...
+            <div id="list" style="font-size: 0.8rem; text-align: center; color: #64748b; min-height: 50px;">
+                Đang nạp dữ liệu từ Google Script...
             </div>
         </div>
     </div>
 
     <script>
-        // LINK GOOGLE QUÂN VỪA GỬI
-        const PROXY_URL = 'https://script.google.com/macros/s/AKfycbwpfvN6ASfMf4JYwZN2PmE_dqRdz5PmXFmUATjDL8soAEMhXPiMjpKPJUgZMnbJE5mz/exec';
+        // LINK GOOGLE MỚI NHẤT CỦA QUÂN
+        const PROXY_URL = 'https://script.google.com/macros/s/AKfycbxxsj80714xxfXcWUSbHoqlRtuT0dCNTdjTgNpTTA2OkctUccmeo56ZoCrxHG9trzXy7w/exec';
         const STK = '18520091234';
 
         async function loadData() {
@@ -114,8 +105,6 @@
                     stt.innerText = 'ONLINE';
                     
                     const trans = data.messages.filter(t => (t.content || "").toUpperCase().includes("QUAN"));
-                    
-                    // Cập nhật con số
                     const total = trans.reduce((s, t) => s + parseInt(t.amount), 0);
                     const today = new Date().toLocaleDateString('en-CA');
                     const daily = trans.filter(t => t.transaction_date.includes(today)).reduce((s, t) => s + parseInt(t.amount), 0);
@@ -126,9 +115,7 @@
                     document.getElementById('bar').style.width = p + "%";
                     document.getElementById('percent').innerText = Math.round(p) + "%";
 
-                    // Hiện danh sách
                     if(trans.length > 0) {
-                        document.getElementById('list').style.display = 'block';
                         document.getElementById('list').innerHTML = trans.slice(0, 5).map(t => `
                             <div class="donor-row">
                                 <div style="text-align:left">
@@ -143,8 +130,9 @@
                     }
                 }
             } catch (e) {
-                stt.innerText = 'LỖI GOOGLE';
+                stt.innerText = 'LỖI KẾT NỐI';
                 dot.className = 'dot';
+                console.error(e);
             }
         }
 
@@ -161,7 +149,7 @@
 
         updateQR(50000);
         loadData();
-        setInterval(loadData, 30000); // 30 giây cập nhật 1 lần
+        setInterval(loadData, 30000);
     </script>
 </body>
 </html>
