@@ -3,38 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bùi Đăng Quân | Donate Pro Fix</title>
+    <title>Bùi Đăng Quân | Donate Live</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --p-color: #6366f1; --s-color: #f43f5e; --t-color: #10b981; --bg: #030712; --card: rgba(17, 24, 39, 0.95); --text: #f9fafb; }
+        :root { --p-color: #6366f1; --s-color: #f43f5e; --t-color: #10b981; --bg: #030712; --card: rgba(17, 24, 39, 0.98); --text: #f9fafb; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%); }
         .container { width: 100%; max-width: 450px; }
         
-        /* AVATAR XOAY MÀU */
-        .avatar-box { width: 90px; height: 90px; margin: 0 auto 15px; position: relative; padding: 4px; border-radius: 50%; background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000); background-size: 400%; animation: moveGradient 5s linear infinite; }
+        /* AVATAR */
+        .avatar-box { width: 90px; height: 90px; margin: 0 auto 15px; position: relative; padding: 4px; border-radius: 50%; background: linear-gradient(45deg, #ff0000, #48ff00, #002bff, #ff0000); background-size: 400%; animation: moveGradient 5s linear infinite; }
         @keyframes moveGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .avatar-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg); }
 
         .panel { background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 20px; margin-bottom: 15px; backdrop-filter: blur(10px); }
         
-        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
-        .price-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px; cursor: pointer; text-align: center; font-size: 0.9rem; }
-        .price-item.active { background: var(--p-color); border-color: var(--p-color); }
+        /* TIẾN ĐỘ */
+        .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .stat-item { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px; text-align: center; }
 
-        .qr-wrapper { background: #fff; padding: 15px; border-radius: 20px; text-align: center; margin: 15px 0; }
+        /* QR */
+        .qr-wrapper { background: #fff; padding: 15px; border-radius: 20px; text-align: center; margin: 15px 0; transition: 0.3s; }
         .qr-wrapper img { width: 100%; max-width: 160px; }
 
         /* BẢNG VÀNG */
-        .status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .dot { width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; }
-        .dot.online { background: var(--t-color); box-shadow: 0 0 10px var(--t-color); }
+        .dot.active { background: var(--t-color); box-shadow: 0 0 10px var(--t-color); }
         .dot.loading { background: #f59e0b; animation: pulse 1s infinite; }
         @keyframes pulse { 50% { opacity: 0.3; } }
 
-        .donor-item { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px; margin-bottom: 8px; border-left: 4px solid var(--t-color); display: flex; justify-content: space-between; align-items: center; }
+        .donor-row { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--t-color); animation: slideUp 0.4s ease forwards; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        button { width:100%; padding:15px; border-radius:15px; border:none; background:#a50064; color:#fff; font-weight:800; cursor:pointer; transition: 0.3s; }
+        button:active { transform: scale(0.98); }
+        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+        .price-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px; cursor: pointer; text-align: center; font-size: 0.9rem; }
+        .price-item.active { background: var(--p-color); border-color: var(--p-color); }
     </style>
 </head>
 <body>
@@ -49,199 +57,111 @@
             <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 800; color: var(--p-color)">
                 <span>MỤC TIÊU 10 TRIỆU</span><span id="percent">0%</span>
             </div>
-            <div style="height: 8px; background: rgba(255,255,255,0.05); border-radius: 10px; margin: 10px 0; overflow: hidden;">
-                <div id="bar" style="height: 100%; background: linear-gradient(90deg, var(--p-color), #a855f7); width: 0%; transition: 2s;"></div>
+            <div style="height: 10px; background: rgba(255,255,255,0.05); border-radius: 10px; margin: 10px 0; overflow: hidden;">
+                <div id="bar" style="height: 100%; background: linear-gradient(90deg, var(--p-color), #a855f7); width: 0%; transition: 2s ease-out;"></div>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center;">
-                <div class="stat-box"><span>Hôm nay:</span> <b id="todayAmt">0đ</b></div>
-                <div class="stat-box"><span>Tổng lượt:</span> <b id="donorCount">0</b></div>
+            <div class="stats-row">
+                <div class="stat-item"><span>Hôm nay</span><br><b id="todayAmt">0đ</b></div>
+                <div class="stat-item"><span>Tổng lượt</span><br><b id="donorCount">0</b></div>
             </div>
         </div>
 
         <div class="panel">
             <div class="price-grid">
-                <div class="price-item" onclick="pick(10000)"><b>10k</b></div>
-                <div class="price-item" onclick="pick(20000)"><b>20k</b></div>
-                <div class="price-item active" onclick="pick(50000)"><b>50k</b></div>
-                <div class="price-item" onclick="pick(100000)"><b>100k</b></div>
-                <div class="price-item" onclick="pick(200000)"><b>200k</b></div>
-                <div class="price-item" onclick="pick(500000)"><b>500k</b></div>
+                <div class="price-item" onclick="pick(10000)">10k</div>
+                <div class="price-item" onclick="pick(20000)">20k</div>
+                <div class="price-item active" onclick="pick(50000)">50k</div>
+                <div class="price-item" onclick="pick(100000)">100k</div>
+                <div class="price-item" onclick="pick(200000)">200k</div>
+                <div class="price-item" onclick="pick(500000)">500k</div>
             </div>
-            <input type="number" id="customAmt" style="width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.2); color:#fff; text-align:center;" placeholder="Nhập số tiền khác..." oninput="customPick()">
-            <div class="qr-wrapper"><img id="qrImg" src=""></div>
-            <button style="width:100%; padding:14px; border-radius:12px; border:none; background:#a50064; color:#fff; font-weight:800; cursor:pointer" onclick="window.location.href='https://me.momo.vn/bdquan1852009'">DONATE QUA MOMO</button>
+            <div class="qr-wrapper">
+                <img id="qrImg" src="">
+                <div style="margin-top:10px; font-size:0.7rem; color:#000; font-weight:800;">NỘI DUNG: UNG HO QUAN</div>
+            </div>
+            <button onclick="window.location.href='https://me.momo.vn/bdquan1852009'">DONATE QUA MOMO</button>
         </div>
 
         <div class="panel">
             <div class="status-header">
-                <h3 style="font-size: 0.85rem;">🏆 BẢNG VÀNG</h3>
-                <div style="display: flex; align-items: center; gap: 5px; font-size: 0.6rem;">
-                    <div id="statusDot" class="dot"></div> <span id="statusTxt">ĐANG KẾT NỐI</span>
+                <h3 style="font-size: 0.9rem;"><i class="fa-solid fa-crown" style="color:#fbbf24"></i> BẢNG VÀNG</h3>
+                <div style="display: flex; align-items: center; gap: 5px; font-size: 0.6rem; font-weight: 800; color: #94a3b8;">
+                    <div id="dot" class="dot"></div> <span id="stt">ĐANG KẾT NỐI</span>
                 </div>
             </div>
-            <div id="list" style="font-size: 0.8rem; text-align: center; color: #64748b;">Đang tải...</div>
+            <div id="list" style="font-size: 0.8rem; text-align: center; color: #64748b; min-height: 50px; display: flex; align-items: center; justify-content: center;">
+                Đang tải dữ liệu từ Google...
+            </div>
         </div>
     </div>
 
     <script>
+        // LINK GOOGLE QUÂN VỪA GỬI
+        const PROXY_URL = 'https://script.google.com/macros/s/AKfycbwpfvN6ASfMf4JYwZN2PmE_dqRdz5PmXFmUATjDL8soAEMhXPiMjpKPJUgZMnbJE5mz/exec';
         const STK = '18520091234';
-        const TOKEN = 'PCEGWXWT5SLHPOV7PRZFOBRHYGOIU0LDEUUFIQBLH9FASKWYQTA3RKPEMK09YM3N';
 
         async function loadData() {
-            const dot = document.getElementById('statusDot');
-            const txt = document.getElementById('statusTxt');
+            const dot = document.getElementById('dot');
+            const stt = document.getElementById('stt');
             dot.className = 'dot loading';
             
             try {
-                // SỬ DỤNG API TRỰC TIẾP QUA TOKEN ĐỂ TRÁNH CORS TRÊN VERCEL
-                const response = await fetch(`https://my.sepay.vn/api/transactions/list?api_key=${TOKEN}`);
-                const data = await response.json();
-
-                if (data && data.messages) {
-                    dot.className = 'dot online';
-                    txt.innerText = 'ONLINE';
-                    
-                    const trans = data.messages.filter(t => (t.content || "").toUpperCase().includes("QUAN"));
-                    const total = trans.reduce((s, t) => s + parseInt(t.amount), 0);
-                    const today = new Date().toLocaleDateString('en-CA');
-                    const daily = trans.filter(t => t.transaction_date.includes(today)).reduce((s, t) => s + parseInt(t.amount), 0);
-
-                    document.getElementById('todayAmt').innerText = daily.toLocaleString() + "đ";
-                    document.getElementById('donorCount').innerText = trans.length;
-                    document.getElementById('percent').innerText = Math.round(Math.min((total/10000000)*100, 100)) + "%";
-                    document.getElementById('bar').style.width = Math.min((total/10000000)*100, 100) + "%";
-
-                    if(trans.length > 0) {
-                        document.getElementById('list').innerHTML = trans.slice(0, 5).map(t => `
-                            <div class="donor-item">
-                                <div style="text-align:left">
-                                    <b>${t.account_name ? t.account_name.substring(0,3)+'***' : 'Ẩn danh'}</b><br>
-                                    <small>${t.transaction_date}</small>
-                                </div>
-                                <b style="color:var(--t-color)">+${parseInt(t.amount).toLocaleString()}đ</b>
-                            </div>
-                        `).join('');
-                    } else {
-                        document.getElementById('list').innerHTML = "Chưa có giao dịch.";
-                    }
-                }
-            } catch (e) {
-                // NẾU API TRỰC TIẾP LỖI, THỬ QUA PROXY DỰ PHÒNG
-                fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://my.sepay.vn/api/transactions/list')}`)
-                .then(r => r.json()).then(res => { /* Xử lý tương tự */ });
-                txt.innerText = 'RETRYING...';
-            }
-        }
-
-        function pick(amt) {
-            document.getElementById('customAmt').value = '';
-            document.querySelectorAll('.price-item').forEach(el => el.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            updateQR(amt);
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 } });
-        }
-        function customPick() {
-            const val = document.getElementById('customAmt').value;
-            if(val > 1000) { updateQR(val); document.querySelectorAll('.price-item').forEach(el => el.classList.remove('active')); }
-        }
-        function updateQR(amt) {
-            document.getElementById('qrImg').src = `https://qr.sepay.vn/img?acc=${STK}&bank=MBBank&amount=${amt}&des=UNG HO QUAN`;
-        }
-
-        updateQR(50000);
-        loadData();
-        setInterval(loadData, 20000);
-    </script>
-</body>
-</html>
-    <script>
-        const API_KEY = 'PCEGWXWT5SLHPOV7PRZFOBRHYGOIU0LDEUUFIQBLH9FASKWYQTA3RKPEMK09YM3N';
-        const STK = '18520091234';
-        const GOAL = 10000000;
-
-        // Hàm bóc tách tên bảo mật
-        function maskName(name) {
-            if(!name) return "Người bạn ẩn danh";
-            let n = name.toUpperCase();
-            let p = n.split(' ');
-            return p.map(x => x[0] + "***").join(' ');
-        }
-
-        async function syncData() {
-            const dot = document.getElementById('syncDot');
-            const txt = document.getElementById('syncText');
-            dot.className = 'dot sync';
-            
-            try {
-                // Sử dụng API trực tiếp với Cache-Control để lấy data mới nhất
-                const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://my.sepay.vn/api/transactions/list')}&cachebust=${Date.now()}`);
-                const json = await res.json();
-                const data = JSON.parse(json.contents);
+                const res = await fetch(PROXY_URL);
+                const data = await res.json();
 
                 if (data && data.messages) {
                     dot.className = 'dot active';
-                    txt.innerText = 'HỆ THỐNG ONLINE';
-
-                    // Lọc giao dịch có nội dung "QUAN" (Regex chuẩn SePay)
+                    stt.innerText = 'ONLINE';
+                    
                     const trans = data.messages.filter(t => (t.content || "").toUpperCase().includes("QUAN"));
                     
-                    // Thống kê
+                    // Cập nhật con số
                     const total = trans.reduce((s, t) => s + parseInt(t.amount), 0);
                     const today = new Date().toLocaleDateString('en-CA');
                     const daily = trans.filter(t => t.transaction_date.includes(today)).reduce((s, t) => s + parseInt(t.amount), 0);
 
                     document.getElementById('todayAmt').innerText = daily.toLocaleString() + "đ";
                     document.getElementById('donorCount').innerText = trans.length;
-                    const p = Math.min((total/GOAL)*100, 100);
-                    document.getElementById('progressBar').style.width = p + "%";
+                    const p = Math.min((total/10000000)*100, 100);
+                    document.getElementById('bar').style.width = p + "%";
                     document.getElementById('percent').innerText = Math.round(p) + "%";
 
-                    // Hiện danh sách Top 6
+                    // Hiện danh sách
                     if(trans.length > 0) {
-                        document.getElementById('donorList').innerHTML = trans.slice(0, 6).map(t => `
+                        document.getElementById('list').style.display = 'block';
+                        document.getElementById('list').innerHTML = trans.slice(0, 5).map(t => `
                             <div class="donor-row">
                                 <div style="text-align:left">
-                                    <b style="color:#fff">${maskName(t.account_name)}</b><br>
+                                    <b style="color:#fff">${t.account_name ? t.account_name.split(' ').map(n=>n[0]+'***').join(' ') : 'Ẩn danh'}</b><br>
                                     <small style="color:#94a3b8; font-size:0.6rem">${t.transaction_date}</small>
                                 </div>
                                 <b style="color:var(--t-color)">+${parseInt(t.amount).toLocaleString()}đ</b>
                             </div>
                         `).join('');
                     } else {
-                        document.getElementById('donorList').innerHTML = "Chưa có giao dịch. Hãy là người đầu tiên!";
+                        document.getElementById('list').innerHTML = "Chưa có giao dịch nào.";
                     }
                 }
             } catch (e) {
+                stt.innerText = 'LỖI GOOGLE';
                 dot.className = 'dot';
-                txt.innerText = 'LỖI KẾT NỐI';
             }
         }
 
-        function changeAmt(amt) {
-            document.getElementById('inpAmt').value = '';
+        function pick(amt) {
             document.querySelectorAll('.price-item').forEach(el => el.classList.remove('active'));
             event.currentTarget.classList.add('active');
             updateQR(amt);
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 } });
         }
 
-        function customAmt() {
-            const val = document.getElementById('inpAmt').value;
-            if(val > 1000) {
-                updateQR(val);
-                document.querySelectorAll('.price-item').forEach(el => el.classList.remove('active'));
-            }
-        }
-
         function updateQR(amt) {
-            // Theo đúng tài liệu SePay: qr.sepay.vn/img
-            document.getElementById('qrImg').src = `https://qr.sepay.vn/img?acc=${STK}&bank=MBBank&amount=${amt}&des=UNG HO QUAN&template=compact`;
+            document.getElementById('qrImg').src = `https://qr.sepay.vn/img?acc=${STK}&bank=MBBank&amount=${amt}&des=UNG HO QUAN`;
         }
 
-        // Khởi chạy
         updateQR(50000);
-        syncData();
-        setInterval(syncData, 20000); // 20 giây cập nhật 1 lần
+        loadData();
+        setInterval(loadData, 30000); // 30 giây cập nhật 1 lần
     </script>
 </body>
 </html>
