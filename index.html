@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bùi Đăng Quân | Dự Án Nuôi Quân v11</title>
+    <title>Bùi Đăng Quân | Dashboard v12.5</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,6 +12,7 @@
     <style>
         :root {
             --p-color: #6366f1; --s-color: #f43f5e; --t-color: #10b981;
+            --momo-color: #a50064;
             --bg: #030712; --card: rgba(17, 24, 39, 0.9);
             --border: rgba(255, 255, 255, 0.1); --text: #f9fafb;
         }
@@ -23,7 +24,6 @@
             display: flex; flex-direction: column; align-items: center; padding-bottom: 50px;
         }
 
-        /* 1. PROFILE */
         .profile-section { width: 100%; max-width: 500px; padding: 50px 20px 20px; text-align: center; }
         .avatar-box {
             width: 120px; height: 120px; margin: 0 auto 15px; padding: 5px; border-radius: 50%;
@@ -38,7 +38,6 @@
         }
         @keyframes pulse { 0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 100% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } }
 
-        /* 2. STATS */
         .stats-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
             width: 100%; max-width: 480px; margin-bottom: 20px; padding: 0 20px;
@@ -50,42 +49,44 @@
         .stat-card b { display: block; font-size: 1.2rem; font-weight: 800; color: #fff; }
         .stat-card span { font-size: 0.6rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; }
 
-        /* 3. MAIN PANEL */
         .container { width: 100%; max-width: 480px; padding: 0 20px; }
         .panel {
             background: var(--card); border: 1px solid var(--border); border-radius: 30px;
             padding: 25px; margin-bottom: 20px; backdrop-filter: blur(10px);
         }
 
-        /* DONATE GRID */
-        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+        /* CUSTOM INPUT AMOUNT */
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 0.75rem; color: #94a3b8; margin-bottom: 8px; font-weight: 800; text-align: center;}
+        .input-group input {
+            width: 100%; padding: 15px; border-radius: 15px; border: 1px solid var(--border);
+            background: rgba(255,255,255,0.05); color: #fff; text-align: center; font-size: 1.1rem; font-weight: 800;
+            outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: var(--p-color); }
+
+        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
         .price-item {
             background: rgba(255,255,255,0.02); border: 1px solid var(--border);
             border-radius: 18px; padding: 15px 5px; cursor: pointer; text-align: center; transition: 0.3s;
         }
         .price-item.active { background: var(--p-color); border-color: #818cf8; transform: translateY(-3px); }
 
-        /* QR AREA - CLICKABLE */
         .qr-wrapper {
             background: #fff; padding: 15px; border-radius: 25px;
             text-align: center; margin: 10px 0; cursor: pointer;
-            transition: 0.3s; position: relative; overflow: hidden;
+            transition: 0.3s; position: relative;
         }
-        .qr-wrapper:active { transform: scale(0.95); opacity: 0.8; }
-        .qr-wrapper img { width: 200px; display: block; margin: 0 auto; }
-        .save-label { 
-            font-size: 0.7rem; color: var(--p-color); margin-top: 10px; 
-            font-weight: 800; display: block; animation: bounce 2s infinite;
-        }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+        .qr-wrapper img { width: 180px; display: block; margin: 0 auto; }
+        .save-label { font-size: 0.65rem; color: #64748b; margin-top: 8px; font-weight: 700; display: block; }
 
-        .btn-main {
+        .btn-momo {
             width: 100%; padding: 18px; border-radius: 20px; border: none;
-            background: linear-gradient(90deg, var(--p-color), var(--s-color));
-            color: #fff; font-weight: 800; cursor: pointer;
+            background: var(--momo-color); color: #fff; font-weight: 800; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s;
         }
+        .btn-momo:active { transform: scale(0.98); }
 
-        /* TOAST NOTIFICATION */
         #toast {
             position: fixed; bottom: 30px; background: var(--p-color);
             padding: 12px 25px; border-radius: 50px; font-weight: 600;
@@ -96,7 +97,7 @@
 </head>
 <body>
 
-    <div id="toast">✅ Đang xử lý ảnh...</div>
+    <div id="toast">✅ Đã cập nhật...</div>
 
     <header class="profile-section">
         <div class="avatar-box">
@@ -108,93 +109,123 @@
     </header>
 
     <div class="stats-grid">
-        <div class="stat-card">
-            <b id="v-total">0</b>
-            <span>Tổng lượt xem</span>
-        </div>
-        <div class="stat-card">
-            <b id="v-today">0</b>
-            <span>Xem hôm nay</span>
-        </div>
+        <div class="stat-card"><b id="v-total">0</b><span>Tổng lượt xem</span></div>
+        <div class="stat-card"><b id="v-today">0</b><span>Hôm nay</span></div>
     </div>
 
     <main class="container">
         <div class="panel">
             <h3 style="margin-bottom: 10px; font-size: 0.9rem;"><i class="fa-solid fa-heart"></i> Câu chuyện của Quân</h3>
             <p style="font-size: 0.85rem; line-height: 1.6; color: #cbd5e0;">
-                Mình là Quân. Mọi sự đóng góp của bạn đều là nguồn động lực giúp mình tiếp tục cố gắng và phát triển hơn mỗi ngày. 
-Xin chân thành cảm ơn!
+                Mọi sự đóng góp của bạn đều là nguồn động lực giúp mình tiếp tục phát triển. Xin chân thành cảm ơn!
             </p>
         </div>
 
         <div class="panel">
-            <h3 style="text-align: center; font-size: 1rem;">🎁 Chọn món quà tiếp sức</h3>
+            <h3 style="text-align: center; font-size: 1rem; margin-bottom: 20px;">🎁 Tiếp sức đam mê</h3>
+            
+            <div class="input-group">
+                <label>NHẬP SỐ TIỀN TÙY CHỈNH (MB BANK)</label>
+                <input type="number" id="customAmount" placeholder="Nhập số tiền khác..." oninput="handleCustomInput()">
+            </div>
+
             <div class="price-grid" id="priceGrid"></div>
             
             <div class="qr-wrapper" onclick="askToSave()">
                 <img id="qrImg" src="" alt="Mã QR MB Bank">
-                <span class="save-label"><i class="fa-solid fa-download"></i> CHẠM ĐỂ LƯU ẢNH QR</span>
+                <span class="save-label"><i class="fa-solid fa-download"></i> CHẠM ĐỂ LƯU ẢNH QR MB BANK</span>
             </div>
             
-            <button class="btn-main" onclick="openApp()">MỞ APP NGÂN HÀNG ➔</button>
+            <button class="btn-momo" onclick="openMomo()">
+                <i class="fa-solid fa-wallet"></i> THANH TOÁN QUA MOMO
+            </button>
         </div>
 
         <div class="panel">
             <h3 style="font-size: 0.9rem; margin-bottom: 15px;"><i class="fa-solid fa-trophy"></i> Bảng Vàng</h3>
-            <div id="donorList" style="text-align: center; color: #4b5563; font-size: 0.8rem;">
-                Chưa có ai nuôi Quân cả ( buồn )
-            </div>
+            <div id="donorList" style="text-align: center; color: #4b5563; font-size: 0.8rem;">Chưa có ai nuôi Quân cả 😥 </div>
         </div>
     </main>
 
     <script>
+        // --- QUÂN NHẬP LINK MOMO CỦA BẠN VÀO ĐÂY ---
         const CONFIG = {
             bank: { id: "MB", acc: "18520091234", name: "BUI DANG QUAN" },
+            momo_user_link: "https://me.momo.vn/bdquan1852009", // Link nhận tiền chung của bạn
             prices: [
-                { v: 10000, e: "🥤" }, { v: 20000, e: "🍞" }, { v: 50000, e: "🍜", active: true },
-                { v: 100000, e: "🍱" }, { v: 200000, e: "☕" }, { v: 500000, e: "👑" }
+                { v: 10000, e: "🥤", link: "https://me.momo.vn/bdquan1852009/4zbqQkoOAM4kbpr" },
+                { v: 20000, e: "🍞", link: "https://me.momo.vn/bdquan1852009/MYer2lpPgrY4eOB" },
+                { v: 50000, e: "🍜", link: "https://me.momo.vn/bdquan1852009/xkaz6wA1qZAOaJ0", active: true },
+                { v: 100000, e: "🍱", link: "https://me.momo.vn/bdquan1852009/Vyb83DgpB2E2avA" },
+                { v: 200000, e: "☕", link: "https://me.momo.vn/bdquan1852009/jnegp9yAQnjYawZ" },
+                { v: 500000, e: "👑", link: "https://me.momo.vn/bdquan1852009/APdRlVXZ5B5LaGy" }
             ],
-            uid: "quan_v11_" + window.location.hostname.replace(/\./g, '_')
+            uid: "quan_v12_5_" + window.location.hostname.replace(/\./g, '_')
         };
 
-        let current = CONFIG.prices.find(p => p.active);
+        let currentVal = 50000;
+        let currentMomoLink = CONFIG.prices[2].link;
 
-        async function init() {
+        function init() {
             renderPrices();
             updateQR();
             handleViews();
         }
 
-        // TÍNH NĂNG CHÍNH: HỎI VÀ LƯU ẢNH
+        function handleCustomInput() {
+            const val = document.getElementById('customAmount').value;
+            if(val > 0) {
+                currentVal = val;
+                // Nếu nhập số tiền lẻ, Momo sẽ mở link nhận tiền chung + số tiền
+                currentMomoLink = `${CONFIG.momo_user_link}/${val}`;
+                document.querySelectorAll('.price-item').forEach(el => el.classList.remove('active'));
+                updateQR();
+            }
+        }
+
+        function renderPrices() {
+            document.getElementById('priceGrid').innerHTML = CONFIG.prices.map(p => `
+                <div class="price-item ${p.v === currentVal ? 'active' : ''}" onclick="pick(${p.v}, '${p.link}')">
+                    <div style="font-size:1.2rem;">${p.e}</div>
+                    <b>${p.v/1000}k</b>
+                </div>
+            `).join('');
+        }
+
+        function pick(v, link) {
+            currentVal = v;
+            currentMomoLink = link;
+            document.getElementById('customAmount').value = "";
+            renderPrices();
+            updateQR();
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 } });
+        }
+
+        function updateQR() {
+            document.getElementById('qrImg').src = `https://img.vietqr.io/image/${CONFIG.bank.id}-${CONFIG.bank.acc}-compact2.png?amount=${currentVal}&addInfo=${encodeURIComponent('QUAN DONATE')}`;
+        }
+
+        function openMomo() {
+            window.location.href = currentMomoLink;
+        }
+
         async function askToSave() {
-            const confirmSave = confirm("Bạn có muốn lưu mã QR này vào thư viện ảnh để thanh toán không?");
-            
-            if (confirmSave) {
+            if (confirm("Lưu mã QR MB Bank này để thanh toán?")) {
                 const qrUrl = document.getElementById('qrImg').src;
                 try {
-                    showToast("🚀 Đang tải ảnh xuống...");
                     const response = await fetch(qrUrl);
                     const blob = await response.blob();
                     const url = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `QR_Quan_${current.v}.png`;
-                    document.body.appendChild(a);
+                    a.href = url; a.download = `QR_MB_Quan.png`;
                     a.click();
-                    document.body.removeChild(a);
-                    window.URL.revokeObjectURL(url);
-                    
-                    // Trên mobile, nếu download tự động bị chặn, hướng dẫn nhấn giữ
-                    setTimeout(() => {
-                        alert("✅ Nếu ảnh chưa tự động lưu, bạn hãy nhấn giữ vào ảnh QR 2 giây rồi chọn 'Lưu ảnh' nhé!");
-                    }, 500);
+                    showToast("✅ Đã tải xuống!");
                 } catch (err) {
-                    alert("📸 Bạn hãy nhấn giữ vào ảnh QR 2 giây để lưu vào Photos nhé!");
+                    alert("📸 Nhấn giữ ảnh 2 giây để lưu vào Photos nhé!");
                 }
             }
         }
 
-        // Xử lý lượt xem thật (IP based)
         async function handleViews() {
             const hasSeen = localStorage.getItem('seen_' + CONFIG.uid);
             const dateKey = new Date().toISOString().split('T')[0];
@@ -212,40 +243,15 @@ Xin chân thành cảm ơn!
                 const dataD = await resD.json();
                 document.getElementById('v-today').innerText = dataD.value || 1;
             } catch (e) {
-                document.getElementById('v-total').innerText = "1,024";
-                document.getElementById('v-today').innerText = "12";
+                document.getElementById('v-total').innerText = "1,050";
+                document.getElementById('v-today').innerText = "20";
             }
-        }
-
-        function renderPrices() {
-            document.getElementById('priceGrid').innerHTML = CONFIG.prices.map(p => `
-                <div class="price-item ${p.v === current.v ? 'active' : ''}" onclick="pick(${p.v})">
-                    <div style="font-size:1.2rem;">${p.e}</div>
-                    <b>${p.v/1000}k</b>
-                </div>
-            `).join('');
-        }
-
-        function pick(v) {
-            current = CONFIG.prices.find(p => p.v === v);
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 } });
-            renderPrices();
-            updateQR();
-        }
-
-        function updateQR() {
-            document.getElementById('qrImg').src = `https://img.vietqr.io/image/${CONFIG.bank.id}-${CONFIG.bank.acc}-compact2.png?amount=${current.v}&addInfo=${encodeURIComponent('QUAN DONATE')}`;
         }
 
         function showToast(m) {
             const t = document.getElementById('toast');
-            t.innerText = m;
-            t.classList.add('show');
+            t.innerText = m; t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3000);
-        }
-
-        function openApp() {
-            window.location.href = `https://qr.sepay.vn/img?acc=${CONFIG.bank.acc}&bank=${CONFIG.bank.id}&amount=${current.v}&des=QUAN+DONATE`;
         }
 
         init();
