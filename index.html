@@ -1,155 +1,304 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bùi Đăng Quân | Donate Live</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <style>
-        :root { --p-color: #6366f1; --s-color: #f43f5e; --t-color: #10b981; --bg: #030712; --card: rgba(17, 24, 39, 0.98); --text: #f9fafb; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%); }
-        .container { width: 100%; max-width: 450px; }
-        
-        .avatar-box { width: 90px; height: 90px; margin: 0 auto 15px; position: relative; padding: 4px; border-radius: 50%; background: linear-gradient(45deg, #ff0000, #48ff00, #002bff, #ff0000); background-size: 400%; animation: moveGradient 5s linear infinite; }
-        @keyframes moveGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .avatar-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Donate - Bùi Đăng Quân</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<style>
+:root{
+--main:#7c3aed;
+--pink:#ec4899;
+--green:#10b981;
+--gold:#fbbf24;
+--bg:#020617;
+--card:rgba(15,23,42,.85);
+--text:#f8fafc;
+--sub:#94a3b8;
+}
 
-        .panel { background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 20px; margin-bottom: 15px; backdrop-filter: blur(10px); }
-        .stat-item { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px; text-align: center; }
-        .qr-wrapper { background: #fff; padding: 15px; border-radius: 20px; text-align: center; margin: 15px 0; }
-        .qr-wrapper img { width: 100%; max-width: 160px; }
+*{ margin:0; padding:0; box-sizing:border-box; font-family:Segoe UI,sans-serif; }
 
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; }
-        .dot.active { background: var(--t-color); box-shadow: 0 0 10px var(--t-color); }
-        .dot.loading { background: #f59e0b; animation: pulse 1s infinite; }
-        @keyframes pulse { 50% { opacity: 0.3; } }
+body{
+background:
+radial-gradient(circle at 20% 0%, rgba(124,58,237,.2), transparent 60%),
+radial-gradient(circle at 80% 100%, rgba(236,72,153,.2), transparent 60%),
+#020617;
+color:var(--text);
+display:flex;
+justify-content:center;
+padding:20px;
+min-height:100vh
+}
 
-        .donor-row { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--t-color); animation: slideUp 0.4s ease forwards; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        button { width:100%; padding:15px; border-radius:15px; border:none; background:#a50064; color:#fff; font-weight:800; cursor:pointer; transition: 0.3s; }
-        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
-        .price-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px; cursor: pointer; text-align: center; font-size: 0.9rem; }
-        .price-item.active { background: var(--p-color); border-color: var(--p-color); }
-    </style>
+.container{ max-width:520px; width:100% }
+
+.header{ text-align:center; margin-bottom:25px }
+
+.avatar{
+width:110px; height:110px;
+margin:auto; padding:4px;
+border-radius:50%;
+background:linear-gradient(45deg,red,orange,yellow,green,cyan,blue,violet,red);
+background-size:400%;
+animation:rainbow 6s linear infinite;
+}
+
+.avatar img{
+width:100%; height:100%;
+object-fit: cover;
+border-radius:50%;
+border:4px solid #020617;
+display:block;
+}
+
+@keyframes rainbow{ 0%{background-position:0%} 100%{background-position:400%} }
+
+.header h1{
+margin-top:12px;
+font-size:1.8rem;
+font-weight:800;
+background:linear-gradient(90deg,#fff,#a855f7,#ec4899);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent
+}
+
+.card{
+background:var(--card);
+backdrop-filter:blur(14px);
+border-radius:22px;
+padding:20px;
+margin-bottom:18px;
+border:1px solid rgba(255,255,255,.05)
+}
+
+.story{ font-size:14px; color:var(--sub); line-height:1.6 }
+
+/* STATS STYLE */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.stat-box {
+    background: rgba(255,255,255,0.03);
+    padding: 12px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.stat-box span { font-size: 12px; color: var(--sub); display: block; margin-bottom: 4px; }
+.stat-box b { font-size: 16px; color: #fff; }
+
+.bar-bg{ height:14px; border-radius:10px; background:#020617; overflow:hidden; margin-top:10px; border: 1px solid rgba(255,255,255,0.1); }
+#bar{ height:100%; width:0; background:linear-gradient(90deg,#7c3aed,#ec4899,#7c3aed); background-size:200%; animation:barMove 3s linear infinite; transition: width 1.5s ease; }
+
+@keyframes barMove{ 0%{background-position:0%} 100%{background-position:200%} }
+
+.donate-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px }
+.donate-item{ background:rgba(255,255,255,.05); border-radius:12px; padding:10px; display:flex; flex-direction:column; gap:6px; text-align:center }
+.donate-item button{ background:#10b981; border:none; padding:6px; border-radius:8px; color:white; cursor:pointer; font-weight: bold; }
+.donate-item a{ background:#ec4899; padding:6px; border-radius:8px; color:white; text-decoration:none; font-size: 13px; font-weight: bold; }
+
+.qr{ background:white; padding:12px; border-radius:14px; margin-top:15px; display:inline-block }
+.qr img{ width:180px }
+
+.title{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px }
+.gold{ color:var(--gold); font-weight:700; display: flex; align-items: center; gap: 8px; }
+.status{ font-size:.75rem; color:var(--sub); display: flex; align-items: center; gap: 5px; }
+
+/* LIVE DOT */
+.dot { width: 8px; height: 8px; background: #475569; border-radius: 50%; }
+.dot.active { background: #10b981; box-shadow: 0 0 8px #10b981; animation: pulse 2s infinite; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+.item{ display:flex; justify-content:space-between; align-items:center; padding:12px; background:rgba(255,255,255,.04); border-radius:10px; margin-bottom:8px; border-left: 3px solid var(--green); }
+.amt{ color:var(--green); font-weight:700 }
+
+.pagination{ display:flex; justify-content:center; align-items: center; gap:15px; margin-top:15px }
+button.page{ padding:8px 16px; border:none; border-radius:8px; cursor:pointer; background: rgba(255,255,255,0.1); color: #fff; font-weight: bold; transition: 0.3s; }
+button.page:disabled { opacity: 0.3; cursor: not-allowed; }
+button.page:not(:disabled):hover { background: var(--main); }
+#pageText { font-size: 14px; color: var(--sub); }
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <header style="text-align: center; padding: 20px 0;">
-            <div class="avatar-box"><img src="https://i.ibb.co/gZvn2jXg/2c712dc97850837209ce3bc3f67262aa-0.jpg"></div>
-            <h1 style="font-size: 1.4rem; font-weight: 800;">Bùi Đăng Quân</h1>
-        </header>
+<div class="container">
+    <div class="header">
+        <div class="avatar"><img src="https://i.ibb.co/gZvn2jXg/2c712dc97850837209ce3bc3f67262aa-0.jpg"></div>
+        <h1>Bùi Đăng Quân</h1>
+    </div>
 
-        <div class="panel">
-            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 800; color: var(--p-color)">
-                <span>MỤC TIÊU 10 TRIỆU</span><span id="percent">0%</span>
-            </div>
-            <div style="height: 10px; background: rgba(255,255,255,0.05); border-radius: 10px; margin: 10px 0; overflow: hidden;">
-                <div id="bar" style="height: 100%; background: linear-gradient(90deg, var(--p-color), #a855f7); width: 0%; transition: 2s ease-out;"></div>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-                <div class="stat-item"><span>Hôm nay</span><br><b id="todayAmt">0đ</b></div>
-                <div class="stat-item"><span>Tổng lượt</span><br><b id="donorCount">0</b></div>
-            </div>
-        </div>
-
-        <div class="panel">
-            <div class="price-grid">
-                <div class="price-item" onclick="pick(10000)">10k</div>
-                <div class="price-item" onclick="pick(20000)">20k</div>
-                <div class="price-item active" onclick="pick(50000)">50k</div>
-                <div class="price-item" onclick="pick(100000)">100k</div>
-                <div class="price-item" onclick="pick(200000)">200k</div>
-                <div class="price-item" onclick="pick(500000)">500k</div>
-            </div>
-            <div class="qr-wrapper">
-                <img id="qrImg" src="">
-                <div style="margin-top:10px; font-size:0.7rem; color:#000; font-weight:800;">NỘI DUNG: UNG HO QUAN</div>
-            </div>
-            <button onclick="window.location.href='https://me.momo.vn/bdquan1852009'">DONATE QUA MOMO</button>
-        </div>
-
-        <div class="panel">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h3 style="font-size: 0.9rem;">🏆 BẢNG VÀNG</h3>
-                <div style="display: flex; align-items: center; gap: 5px; font-size: 0.6rem; font-weight: 800; color: #94a3b8;">
-                    <div id="dot" class="dot"></div> <span id="stt">ĐANG KẾT NỐI</span>
-                </div>
-            </div>
-            <div id="list" style="font-size: 0.8rem; text-align: center; color: #64748b; min-height: 50px;">
-                Đang nạp dữ liệu từ Google Script...
-            </div>
+    <div class="card">
+        <div class="story">
+            Mình là <b>Quân</b>, một coder trẻ đang trên hành trình học hỏi và khám phá thế giới công nghệ.  
+            Hiện tại mình đang tự học lập trình, xây dựng các dự án nhỏ và duy trì server để thử nghiệm nhiều ý tưởng mới.  
+            Mỗi sự ủng hộ của bạn không chỉ giúp mình có thêm động lực mà còn giúp mình có kinh phí để tiếp tục phát triển dự án. Cảm ơn bạn rất nhiều! ❤️
         </div>
     </div>
 
-    <script>
-        // LINK GOOGLE MỚI NHẤT CỦA QUÂN
-        const PROXY_URL = 'https://script.google.com/macros/s/AKfycbxxsj80714xxfXcWUSbHoqlRtuT0dCNTdjTgNpTTA2OkctUccmeo56ZoCrxHG9trzXy7w/exec';
-        const STK = '18520091234';
+    <div class="card">
+        <div class="stats-grid">
+            <div class="stat-box"><span>Hôm nay</span><b id="todayAmt">0đ</b></div>
+            <div class="stat-box"><span>Tổng nhận</span><b id="totalAmt">0đ</b></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:bold;">
+            <span>MỤC TIÊU 10 TRIỆU</span>
+            <span id="percentText" style="color:var(--pink)">0%</span>
+        </div>
+        <div class="bar-bg">
+            <div id="bar"></div>
+        </div>
+    </div>
 
-        async function loadData() {
-            const dot = document.getElementById('dot');
-            const stt = document.getElementById('stt');
-            dot.className = 'dot loading';
-            
-            try {
-                const res = await fetch(PROXY_URL);
-                const data = await res.json();
+    <div class="card" style="text-align:center">
+        <h3 style="margin-bottom:15px">Ủng hộ Quân</h3>
+        <div class="donate-grid">
+            <div class="donate-item"><b>10K</b><button onclick="donateMB(10000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=10000">MoMo</a></div>
+            <div class="donate-item"><b>20K</b><button onclick="donateMB(20000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=20000">MoMo</a></div>
+            <div class="donate-item"><b>50K</b><button onclick="donateMB(50000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=50000">MoMo</a></div>
+            <div class="donate-item"><b>100K</b><button onclick="donateMB(100000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=100000">MoMo</a></div>
+            <div class="donate-item"><b>200K</b><button onclick="donateMB(200000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=200000">MoMo</a></div>
+            <div class="donate-item"><b>500K</b><button onclick="donateMB(500000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=500000">MoMo</a></div>
+        </div>
+        
+        <div style="margin-top:18px">
+            <b style="font-size:14px">Hoặc nhập số tiền tùy chỉnh (MB Bank)</b>
+            <input id="customMoney" type="number" placeholder="Ví dụ: 150000" style="width:100%; margin-top:8px; padding:12px; border-radius:12px; border:none; text-align:center; font-size:15px; background: rgba(255,255,255,0.05); color: #fff;">
+            <button onclick="customMB()" style="width:100%; margin-top:8px; padding:12px; border-radius:12px; border:none; background:#10b981; color:white; font-weight:700; cursor:pointer;">Tạo QR MB Bank</button>
+        </div>
 
-                if (data && data.messages) {
-                    dot.className = 'dot active';
-                    stt.innerText = 'ONLINE';
-                    
-                    const trans = data.messages.filter(t => (t.content || "").toUpperCase().includes("QUAN"));
-                    const total = trans.reduce((s, t) => s + parseInt(t.amount), 0);
-                    const today = new Date().toLocaleDateString('en-CA');
-                    const daily = trans.filter(t => t.transaction_date.includes(today)).reduce((s, t) => s + parseInt(t.amount), 0);
+        <div class="qr">
+            <img id="qr" onclick="downloadQR()" style="cursor:pointer" src="https://qr.sepay.vn/img?acc=18520091234&bank=MBBank&amount=50000&des=UNG HO QUAN">
+        </div>
+        <p style="font-size:12px;color:#94a3b8;margin-top:10px">Nội dung chuyển khoản: <b style="color:var(--main)">UNG HO QUAN</b></p>
+    </div>
 
-                    document.getElementById('todayAmt').innerText = daily.toLocaleString() + "đ";
-                    document.getElementById('donorCount').innerText = trans.length;
-                    const p = Math.min((total/10000000)*100, 100);
-                    document.getElementById('bar').style.width = p + "%";
-                    document.getElementById('percent').innerText = Math.round(p) + "%";
+    <div class="card">
+        <div class="title">
+            <div class="gold"><i class="fa-solid fa-crown"></i> BẢNG VÀNG</div>
+            <div class="status">
+                <div id="dot" class="dot"></div>
+                <span id="stt">Loading...</span>
+            </div>
+        </div>
+        <div id="list"></div>
+        <div class="pagination">
+            <button id="prevBtn" class="page" onclick="changePage(-1)">Trước</button>
+            <span id="pageText"></span>
+            <button id="nextBtn" class="page" onclick="changePage(1)">Sau</button>
+        </div>
+    </div>
+</div>
 
-                    if(trans.length > 0) {
-                        document.getElementById('list').innerHTML = trans.slice(0, 5).map(t => `
-                            <div class="donor-row">
-                                <div style="text-align:left">
-                                    <b style="color:#fff">${t.account_name ? t.account_name.split(' ').map(n=>n[0]+'***').join(' ') : 'Ẩn danh'}</b><br>
-                                    <small style="color:#94a3b8; font-size:0.6rem">${t.transaction_date}</small>
-                                </div>
-                                <b style="color:var(--t-color)">+${parseInt(t.amount).toLocaleString()}đ</b>
-                            </div>
-                        `).join('');
-                    } else {
-                        document.getElementById('list').innerHTML = "Chưa có giao dịch nào.";
-                    }
-                }
-            } catch (e) {
-                stt.innerText = 'LỖI KẾT NỐI';
-                dot.className = 'dot';
-                console.error(e);
-            }
+<script>
+const API="https://script.google.com/macros/s/AKfycbzwS3pSK2Ec-LEYoPanajr_rqzQOi0s7ruDYhQqPFHyf4qmw-n2RIDIojzZ_-WFI8S2Mw/exec"
+let data=[]
+let pageNow=1
+const per=5
+let lastId = null;
+
+function donateMB(m){
+    document.getElementById("qr").src=`https://qr.sepay.vn/img?acc=18520091234&bank=MBBank&amount=${m}&des=UNG HO QUAN`;
+}
+
+async function load(){
+    try{
+        const r=await fetch(API);
+        const j=await r.json();
+        
+        document.getElementById("stt").innerText="LIVE";
+        document.getElementById("dot").classList.add("active");
+
+        data = j.transactions.filter(t => (t.transaction_content||"").toUpperCase().includes("QUAN"));
+
+        // Hiệu ứng pháo hoa khi có donate mới
+        if(data.length > 0 && lastId !== null && data[0].id !== lastId) {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
         }
+        if(data.length > 0) lastId = data[0].id;
 
-        function pick(amt) {
-            document.querySelectorAll('.price-item').forEach(el => el.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            updateQR(amt);
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 } });
-        }
+        updateStats();
+        render();
+    }catch(e){
+        document.getElementById("stt").innerText="OFFLINE";
+        document.getElementById("dot").classList.remove("active");
+    }
+}
 
-        function updateQR(amt) {
-            document.getElementById('qrImg').src = `https://qr.sepay.vn/img?acc=${STK}&bank=MBBank&amount=${amt}&des=UNG HO QUAN`;
-        }
+function updateStats() {
+    // Tổng tiền
+    const total = data.reduce((s, t) => s + Number(t.amount_in), 0);
+    document.getElementById("totalAmt").innerText = total.toLocaleString() + "đ";
 
-        updateQR(50000);
-        loadData();
-        setInterval(loadData, 30000);
-    </script>
+    // Tiến độ
+    const pct = Math.min((total/10000000)*100, 100);
+    document.getElementById("bar").style.width = pct + "%";
+    document.getElementById("percentText").innerText = Math.round(pct) + "%";
+
+    // Tiền hôm nay
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const todaySum = data.filter(t => t.transaction_date.includes(today))
+                         .reduce((s, t) => s + Number(t.amount_in), 0);
+    document.getElementById("todayAmt").innerText = todaySum.toLocaleString() + "đ";
+}
+
+function render(){
+    let start=(pageNow-1)*per;
+    let arr=data.slice(start,start+per);
+    let html="";
+
+    if(arr.length === 0) {
+        html = "<p style='text-align:center; color:#64748b; padding:20px;'>Chưa có dữ liệu giao dịch.</p>";
+    } else {
+        arr.forEach(t=>{
+            // Lọc bớt chữ trong nội dung cho đẹp
+            let name = t.transaction_content.split("chuyen tien")[0].trim() || "Người ủng hộ";
+            html+=`
+            <div class="item">
+                <div style="max-width:70%">
+                    <b style="font-size:14px">${name}</b><br>
+                    <small style="color:#64748b; font-size:11px">${t.transaction_date}</small>
+                </div>
+                <div class="amt">+${Number(t.amount_in).toLocaleString()}đ</div>
+            </div>`;
+        });
+    }
+
+    document.getElementById("list").innerHTML=html;
+    
+    const totalPages = Math.ceil(data.length/per) || 1;
+    document.getElementById("pageText").innerText = `Trang ${pageNow} / ${totalPages}`;
+    document.getElementById("prevBtn").disabled = (pageNow <= 1);
+    document.getElementById("nextBtn").disabled = (pageNow >= totalPages);
+}
+
+function changePage(n){
+    pageNow += n;
+    render();
+}
+
+function customMB(){
+    let money=document.getElementById("customMoney").value;
+    if(!money || money<1000){ alert("Nhập tối thiểu 1.000đ"); return; }
+    document.getElementById("qr").src=`https://qr.sepay.vn/img?acc=18520091234&bank=MBBank&amount=${money}&des=UNG HO QUAN`;
+}
+
+function downloadQR(){
+    const qr=document.getElementById("qr").src;
+    if(confirm("Tải ảnh QR này về máy?")){
+        const a=document.createElement("a");
+        a.href=qr; a.download="qr-donate-quan.png";
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+}
+
+load();
+setInterval(load, 20000);
+</script>
+
 </body>
 </html>
