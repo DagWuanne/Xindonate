@@ -1,303 +1,223 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Donate - Bùi Đăng Quân</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-<style>
-:root{
---main:#7c3aed;
---pink:#ec4899;
---green:#10b981;
---gold:#fbbf24;
---bg:#020617;
---card:rgba(15,23,42,.85);
---text:#f8fafc;
---sub:#94a3b8;
-}
-
-*{ margin:0; padding:0; box-sizing:border-box; font-family:Segoe UI,sans-serif; }
-
-body{
-background:
-radial-gradient(circle at 20% 0%, rgba(124,58,237,.2), transparent 60%),
-radial-gradient(circle at 80% 100%, rgba(236,72,153,.2), transparent 60%),
-#020617;
-color:var(--text);
-display:flex;
-justify-content:center;
-padding:20px;
-min-height:100vh
-}
-
-.container{ max-width:520px; width:100% }
-
-.header{ text-align:center; margin-bottom:25px }
-
-.avatar{
-width:110px; height:110px;
-margin:auto; padding:4px;
-border-radius:50%;
-background:linear-gradient(45deg,red,orange,yellow,green,cyan,blue,violet,red);
-background-size:400%;
-animation:rainbow 6s linear infinite;
-}
-
-.avatar img{
-width:100%; height:100%;
-object-fit: cover;
-border-radius:50%;
-border:4px solid #020617;
-display:block;
-}
-
-@keyframes rainbow{ 0%{background-position:0%} 100%{background-position:400%} }
-
-.header h1{
-margin-top:12px;
-font-size:1.8rem;
-font-weight:800;
-background:linear-gradient(90deg,#fff,#a855f7,#ec4899);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent
-}
-
-.card{
-background:var(--card);
-backdrop-filter:blur(14px);
-border-radius:22px;
-padding:20px;
-margin-bottom:18px;
-border:1px solid rgba(255,255,255,.05)
-}
-
-.story{ font-size:14px; color:var(--sub); line-height:1.6 }
-
-/* STATS STYLE */
-.stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-.stat-box {
-    background: rgba(255,255,255,0.03);
-    padding: 12px;
-    border-radius: 15px;
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.05);
-}
-.stat-box span { font-size: 12px; color: var(--sub); display: block; margin-bottom: 4px; }
-.stat-box b { font-size: 16px; color: #fff; }
-
-.bar-bg{ height:14px; border-radius:10px; background:#020617; overflow:hidden; margin-top:10px; border: 1px solid rgba(255,255,255,0.1); }
-#bar{ height:100%; width:0; background:linear-gradient(90deg,#7c3aed,#ec4899,#7c3aed); background-size:200%; animation:barMove 3s linear infinite; transition: width 1.5s ease; }
-
-@keyframes barMove{ 0%{background-position:0%} 100%{background-position:200%} }
-
-.donate-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px }
-.donate-item{ background:rgba(255,255,255,.05); border-radius:12px; padding:10px; display:flex; flex-direction:column; gap:6px; text-align:center }
-.donate-item button{ background:#10b981; border:none; padding:6px; border-radius:8px; color:white; cursor:pointer; font-weight: bold; }
-.donate-item a{ background:#ec4899; padding:6px; border-radius:8px; color:white; text-decoration:none; font-size: 13px; font-weight: bold; }
-
-.qr{ background:white; padding:12px; border-radius:14px; margin-top:15px; display:inline-block }
-.qr img{ width:180px }
-
-.title{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px }
-.gold{ color:var(--gold); font-weight:700; display: flex; align-items: center; gap: 8px; }
-.status{ font-size:.75rem; color:var(--sub); display: flex; align-items: center; gap: 5px; }
-
-/* LIVE DOT */
-.dot { width: 8px; height: 8px; background: #475569; border-radius: 50%; }
-.dot.active { background: #10b981; box-shadow: 0 0 8px #10b981; animation: pulse 2s infinite; }
-@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
-.item{ display:flex; justify-content:space-between; align-items:center; padding:12px; background:rgba(255,255,255,.04); border-radius:10px; margin-bottom:8px; border-left: 3px solid var(--green); }
-.amt{ color:var(--green); font-weight:700 }
-
-.pagination{ display:flex; justify-content:center; align-items: center; gap:15px; margin-top:15px }
-button.page{ padding:8px 16px; border:none; border-radius:8px; cursor:pointer; background: rgba(255,255,255,0.1); color: #fff; font-weight: bold; transition: 0.3s; }
-button.page:disabled { opacity: 0.3; cursor: not-allowed; }
-button.page:not(:disabled):hover { background: var(--main); }
-#pageText { font-size: 14px; color: var(--sub); }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Bùi Đăng Quân - Kết Nối & Chia Sẻ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary: #c084fc; --secondary: #6366f1; --accent: #f472b6;
+            --bg: #020617; --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08); --text: #f8fafc;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif; }
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1), transparent 50%),
+                              radial-gradient(circle at 90% 80%, rgba(244, 114, 182, 0.1), transparent 50%);
+            color: var(--text); display: flex; justify-content: center; padding: 20px; min-height: 100vh;
+        }
+        .container { max-width: 500px; width: 100%; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .avatar-wrapper { position: relative; width: 120px; height: 120px; margin: 0 auto; }
+        .avatar {
+            width: 100%; height: 100%; border-radius: 35px; object-fit: cover;
+            border: 2px solid var(--border); padding: 5px; background: var(--glass);
+            transform: rotate(-3deg); transition: 0.5s;
+        }
+        .avatar-wrapper:hover .avatar { transform: rotate(0deg) scale(1.05); }
+        .live-tag {
+            position: absolute; top: -5px; right: -5px; background: #10b981;
+            color: white; padding: 4px 12px; border-radius: 20px; font-size: 10px;
+            font-weight: 800; animation: pulse 2s infinite; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        h1 { margin-top: 15px; font-size: 1.8rem; font-weight: 900; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 25px; padding: 20px; margin-bottom: 20px; }
+        .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; color: var(--primary); }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .stat-item { background: rgba(255,255,255,0.02); padding: 12px; border-radius: 18px; border: 1px solid var(--border); text-align: center; }
+        .stat-label { font-size: 10px; color: #94a3b8; display: block; margin-bottom: 4px; }
+        .stat-value { font-size: 1.1rem; font-weight: 800; }
+        .bar-bg { height: 10px; background: rgba(0,0,0,0.3); border-radius: 10px; overflow: hidden; margin-top: 10px; }
+        #bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--secondary), var(--accent)); transition: width 1.5s ease; }
+        .donate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+        .btn-donate { background: var(--glass); border: 1px solid var(--border); padding: 10px; border-radius: 15px; color: #fff; cursor: pointer; font-weight: 700; transition: 0.3s; }
+        .btn-donate:hover { background: var(--primary); transform: translateY(-2px); }
+        .qr-box { background: #fff; padding: 10px; border-radius: 20px; display: inline-block; margin-top: 10px; }
+        .qr-box img { width: 150px; display: block; }
+        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 15px; margin-bottom: 8px; border-left: 4px solid #10b981; }
+        .history-amt { font-weight: 800; color: #10b981; }
+        #debug { font-family: monospace; font-size: 9px; color: #4ade80; background: #000; padding: 10px; border-radius: 12px; margin-top: 10px; max-height: 80px; overflow-y: auto; opacity: 0.6; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        button:disabled { opacity: 0.3; cursor: not-allowed; }
+    </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <div class="avatar"><img src="https://i.ibb.co/gZvn2jXg/2c712dc97850837209ce3bc3f67262aa-0.jpg"></div>
+        <div class="avatar-wrapper">
+            <img src="https://i.ibb.co/gZvn2jXg/2c712dc97850837209ce3bc3f67262aa-0.jpg" class="avatar">
+            <div class="live-tag" id="status-tag">OFFLINE</div>
+        </div>
         <h1>Bùi Đăng Quân</h1>
     </div>
 
     <div class="card">
-        <div class="story">
-            Mình là <b>Quân</b>, một coder trẻ đang trên hành trình học hỏi và khám phá thế giới công nghệ.  
-            Hiện tại mình đang tự học lập trình, xây dựng các dự án nhỏ và duy trì server để thử nghiệm nhiều ý tưởng mới.  
-            Mỗi sự ủng hộ của bạn không chỉ giúp mình có thêm động lực mà còn giúp mình có kinh phí để tiếp tục phát triển dự án. Cảm ơn bạn rất nhiều! ❤️
+        <div class="card-title"><i class="fa-solid fa-feather-pointed"></i> Câu chuyện của tôi</div>
+        <div style="font-size: 14px; color: #cbd5e1; text-align: justify;">
+            Chào bạn, mình là <b>Quân</b>. Mình lớn lên tại vùng đất nắng gió <b>Phan Rang</b>. Với mình, mỗi chuyến đi là một bài học, mỗi người bạn mới là một món quà. Trang web này là nơi mình lưu giữ những sự ủng hộ nhỏ bé nhưng đầy ý nghĩa từ mọi người để tiếp tục hành trình khám phá cuộc sống.
         </div>
     </div>
 
     <div class="card">
         <div class="stats-grid">
-            <div class="stat-box"><span>Hôm nay</span><b id="todayAmt">0đ</b></div>
-            <div class="stat-box"><span>Tổng nhận</span><b id="totalAmt">0đ</b></div>
+            <div class="stat-item">
+                <span class="stat-label">HÔM NAY</span><b class="stat-value" id="todayAmt">0đ</b>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">TỔNG NHẬN</span><b class="stat-value" id="totalAmt">0đ</b>
+            </div>
         </div>
-        <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:bold;">
-            <span>MỤC TIÊU 10 TRIỆU</span>
-            <span id="percentText" style="color:var(--pink)">0%</span>
+        <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:bold;">
+            <span>MỤC TIÊU 10 TRIỆU</span><span id="percentText" style="color:var(--accent)">0%</span>
         </div>
-        <div class="bar-bg">
-            <div id="bar"></div>
-        </div>
+        <div class="bar-bg"><div id="bar"></div></div>
     </div>
 
-    <div class="card" style="text-align:center">
-        <h3 style="margin-bottom:15px">Ủng hộ Quân</h3>
+    <div class="card" style="text-align: center;">
+        <div class="card-title" style="justify-content: center;"><i class="fa-solid fa-heart"></i> Donate ủng hộ Quân</div>
         <div class="donate-grid">
-            <div class="donate-item"><b>10K</b><button onclick="donateMB(10000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=10000">MoMo</a></div>
-            <div class="donate-item"><b>20K</b><button onclick="donateMB(20000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=20000">MoMo</a></div>
-            <div class="donate-item"><b>50K</b><button onclick="donateMB(50000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=50000">MoMo</a></div>
-            <div class="donate-item"><b>100K</b><button onclick="donateMB(100000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=100000">MoMo</a></div>
-            <div class="donate-item"><b>200K</b><button onclick="donateMB(200000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=200000">MoMo</a></div>
-            <div class="donate-item"><b>500K</b><button onclick="donateMB(500000)">MB</button><a href="https://me.momo.vn/bdquan1852009?amount=500000">MoMo</a></div>
+            <button class="btn-donate" onclick="genQR(10000)">10K</button>
+            <button class="btn-donate" onclick="genQR(20000)">20K</button>
+            <button class="btn-donate" onclick="genQR(50000)">50K</button>
         </div>
-        
-        <div style="margin-top:18px">
-            <b style="font-size:14px">Hoặc nhập số tiền tùy chỉnh (MB Bank)</b>
-            <input id="customMoney" type="number" placeholder="Ví dụ: 150000" style="width:100%; margin-top:8px; padding:12px; border-radius:12px; border:none; text-align:center; font-size:15px; background: rgba(255,255,255,0.05); color: #fff;">
-            <button onclick="customMB()" style="width:100%; margin-top:8px; padding:12px; border-radius:12px; border:none; background:#10b981; color:white; font-weight:700; cursor:pointer;">Tạo QR MB Bank</button>
-        </div>
-
-        <div class="qr">
-            <img id="qr" onclick="downloadQR()" style="cursor:pointer" src="https://qr.sepay.vn/img?acc=18520091234&bank=MBBank&amount=50000&des=UNG HO QUAN">
-        </div>
-        <p style="font-size:12px;color:#94a3b8;margin-top:10px">Nội dung chuyển khoản: <b style="color:var(--main)">UNG HO QUAN</b></p>
+        <div class="qr-box"><img id="qr" src="https://qr.sepay.vn/img?acc=18520091234&bank=MBBank&amount=10000&des=UNG HO QUAN"></div>
+        <p style="font-size: 11px; color: #94a3b8; margin-top: 10px;">Nội dung: <b>UNG HO QUAN</b></p>
     </div>
 
     <div class="card">
-        <div class="title">
-            <div class="gold"><i class="fa-solid fa-crown"></i> BẢNG VÀNG</div>
-            <div class="status">
-                <div id="dot" class="dot"></div>
-                <span id="stt">Loading...</span>
-            </div>
-        </div>
+        <div class="card-title"><i class="fa-solid fa-crown"></i> Bảng Vàng Vinh Danh</div>
         <div id="list"></div>
-        <div class="pagination">
-            <button id="prevBtn" class="page" onclick="changePage(-1)">Trước</button>
-            <span id="pageText"></span>
-            <button id="nextBtn" class="page" onclick="changePage(1)">Sau</button>
+        <div style="display:flex; justify-content:center; gap:15px; margin-top:10px; align-items: center;">
+            <button id="prevBtn" onclick="changePage(-1)" style="background:none; border:none; color:#fff; cursor:pointer;"><i class="fa-solid fa-chevron-left"></i></button>
+            <span id="pageText" style="font-size: 12px; color: #94a3b8;">Trang 1</span>
+            <button id="nextBtn" onclick="changePage(1)" style="background:none; border:none; color:#fff; cursor:pointer;"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
+        <div id="debug">> Đang khởi động hệ thống...</div>
     </div>
 </div>
 
 <script>
-const API="https://script.google.com/macros/s/AKfycbzwS3pSK2Ec-LEYoPanajr_rqzQOi0s7ruDYhQqPFHyf4qmw-n2RIDIojzZ_-WFI8S2Mw/exec"
-let data=[]
-let pageNow=1
-const per=5
-let lastId = null;
+    const API_KEY = "3BHXPWBZTUD3LRNB6CUEOJZCIQSMGMNKDN28UHGDGO0O6VPP41Q859YVYA5G7STI";
+    const PROXIES = [
+        "https://api.allorigins.win/get?url=",
+        "https://corsproxy.io/?"
+    ];
+    let currentProxyIdx = 0;
+    let data = [];
+    let pageNow = 1;
+    let lastId = null;
 
-function donateMB(m){
-    document.getElementById("qr").src=`https://qr.sepay.vn/img?acc=18520091234&bank=MBBank&amount=${m}&des=UNG HO QUAN`;
-}
+    function log(msg) {
+        const d = document.getElementById('debug');
+        d.innerHTML = `[${new Date().toLocaleTimeString()}] ${msg}<br>` + d.innerHTML;
+    }
 
-async function load(){
-    try{
-        const r=await fetch(API);
-        const j=await r.json();
+    async function loadData() {
+        const targetUrl = `https://my.sepay.vn/userapi/transactions/list?api_key=${API_KEY}`;
+        const finalUrl = PROXIES[currentProxyIdx] + encodeURIComponent(targetUrl);
         
-        document.getElementById("stt").innerText="LIVE";
-        document.getElementById("dot").classList.add("active");
+        try {
+            const r = await fetch(finalUrl);
+            if (!r.ok) throw new Error("Proxy Error");
+            
+            const raw = await r.json();
+            // Xử lý dữ liệu trả về khác nhau giữa các proxy
+            const res = raw.contents ? JSON.parse(raw.contents) : raw;
 
-        data = j.transactions.filter(t => (t.transaction_content||"").toUpperCase().includes("QUAN"));
-
-        // Hiệu ứng pháo hoa khi có donate mới
-        if(data.length > 0 && lastId !== null && data[0].id !== lastId) {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            if (res.transactions) {
+                document.getElementById('status-tag').innerText = "LIVE";
+                document.getElementById('status-tag').style.background = "#10b981";
+                
+                // Lọc giao dịch chứa chữ QUAN
+                data = res.transactions.filter(t => t.transaction_content.toUpperCase().includes("QUAN"));
+                
+                if(data.length > 0 && lastId !== null && data[0].id !== lastId) {
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                    log("Phát hiện donate mới!");
+                }
+                lastId = data.length > 0 ? data[0].id : null;
+                
+                updateStats();
+                render();
+            }
+        } catch (e) {
+            log("Proxy lỗi, đang chuyển hướng...");
+            currentProxyIdx = (currentProxyIdx + 1) % PROXIES.length;
         }
-        if(data.length > 0) lastId = data[0].id;
-
-        updateStats();
-        render();
-    }catch(e){
-        document.getElementById("stt").innerText="OFFLINE";
-        document.getElementById("dot").classList.remove("active");
-    }
-}
-
-function updateStats() {
-    // Tổng tiền
-    const total = data.reduce((s, t) => s + Number(t.amount_in), 0);
-    document.getElementById("totalAmt").innerText = total.toLocaleString() + "đ";
-
-    // Tiến độ
-    const pct = Math.min((total/10000000)*100, 100);
-    document.getElementById("bar").style.width = pct + "%";
-    document.getElementById("percentText").innerText = Math.round(pct) + "%";
-
-    // Tiền hôm nay
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-    const todaySum = data.filter(t => t.transaction_date.includes(today))
-                         .reduce((s, t) => s + Number(t.amount_in), 0);
-    document.getElementById("todayAmt").innerText = todaySum.toLocaleString() + "đ";
-}
-
-function render(){
-    let start=(pageNow-1)*per;
-    let arr=data.slice(start,start+per);
-    let html="";
-
-    if(arr.length === 0) {
-        html = "<p style='text-align:center; color:#64748b; padding:20px;'>Chưa có dữ liệu giao dịch.</p>";
-    } else {
-        arr.forEach(t=>{
-            // Lọc bớt chữ trong nội dung cho đẹp
-            let name = t.transaction_content.split("chuyen tien")[0].trim() || "Người ủng hộ";
-            html+=`
-            <div class="item">
-                <div style="max-width:70%">
-                    <b style="font-size:14px">${name}</b><br>
-                    <small style="color:#64748b; font-size:11px">${t.transaction_date}</small>
-                </div>
-                <div class="amt">+${Number(t.amount_in).toLocaleString()}đ</div>
-            </div>`;
-        });
     }
 
-    document.getElementById("list").innerHTML=html;
-    
-    const totalPages = Math.ceil(data.length/per) || 1;
-    document.getElementById("pageText").innerText = `Trang ${pageNow} / ${totalPages}`;
-    document.getElementById("prevBtn").disabled = (pageNow <= 1);
-    document.getElementById("nextBtn").disabled = (pageNow >= totalPages);
-}
-
-function changePage(n){
-    pageNow += n;
-    render();
-}
-
-function customMB(){
-    let money=document.getElementById("customMoney").value;
-    if(!money || money<1000){ alert("Nhập tối thiểu 1.000đ"); return; }
-    document.getElementById("qr").src=`https://qr.sepay.vn/img?acc=18520091234&bank=MBBank&amount=${money}&des=UNG HO QUAN`;
-}
-
-function downloadQR(){
-    const qr=document.getElementById("qr").src;
-    if(confirm("Tải ảnh QR này về máy?")){
-        const a=document.createElement("a");
-        a.href=qr; a.download="qr-donate-quan.png";
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    function updateStats() {
+        const total = data.reduce((s, t) => s + Number(t.amount_in), 0);
+        document.getElementById("totalAmt").innerText = total.toLocaleString() + "đ";
+        const pct = Math.min((total/10000000)*100, 100);
+        document.getElementById("bar").style.width = pct + "%";
+        document.getElementById("percentText").innerText = Math.round(pct) + "%";
+        
+        const today = new Date().toLocaleDateString('en-CA');
+        const todaySum = data.filter(t => t.transaction_date.includes(today)).reduce((s, t) => s + Number(t.amount_in), 0);
+        document.getElementById("todayAmt").innerText = todaySum.toLocaleString() + "đ";
     }
-}
 
-load();
-setInterval(load, 20000);
+    function render() {
+        const per = 5;
+        let start = (pageNow - 1) * per;
+        let arr = data.slice(start, start + per);
+        let html = "";
+        
+        if(arr.length === 0) {
+            html = "<p style='text-align:center; font-size:12px; color:#64748b; padding:20px;'>Chưa có giao dịch nào.</p>";
+        } else {
+            arr.forEach(t => {
+                // Xử lý tên thông minh từ nội dung MoMo Quân gửi
+                let content = t.transaction_content.toUpperCase();
+                let name = "Người bạn bí ẩn";
+                
+                if(content.includes("MOMO")) {
+                    let parts = content.split("-");
+                    // Lấy phần ở giữa thường là tên hoặc nội dung
+                    name = parts.length > 1 ? parts[1].replace("UNG HO QUAN", "").trim() : "Bạn gửi từ MoMo";
+                } else {
+                    name = content.split("CHUYEN TIEN")[0].trim() || "Người ủng hộ";
+                }
+                
+                if(!name || name === "") name = "UNG HO QUAN";
+
+                html += `
+                <div class="history-item">
+                    <div style="max-width: 70%;">
+                        <b style="font-size:13px; color:#f1f5f9;">${name}</b><br>
+                        <small style="color:#64748b; font-size:10px;">${t.transaction_date}</small>
+                    </div>
+                    <div class="history-amt">+${Number(t.amount_in).toLocaleString()}đ</div>
+                </div>`;
+            });
+        }
+        
+        document.getElementById("list").innerHTML = html;
+        document.getElementById("pageText").innerText = `Trang ${pageNow}`;
+        document.getElementById("prevBtn").disabled = (pageNow === 1);
+        document.getElementById("nextBtn").disabled = (start + per >= data.length);
+    }
+
+    function changePage(n) { pageNow += n; render(); }
+    function genQR(m) { document.getElementById("qr").src = `https://qr.sepay.vn/img?acc=18520091234&bank=MBBank&amount=${m}&des=UNG HO QUAN`; }
+
+    loadData();
+    setInterval(loadData, 20000);
 </script>
 
 </body>
