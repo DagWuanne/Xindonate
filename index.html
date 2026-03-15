@@ -3,37 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Bùi Đăng Quân | Personal Space</title>
+    <title>Bùi Đăng Quân | Beyond the Horizon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050505;
-            --card-bg: rgba(15, 15, 15, 0.6);
-            --primary: #8b5cf6;
-            --secondary: #d946ef;
-            --text-main: #ffffff;
-            --text-sub: #94a3b8;
-            --border: rgba(255, 255, 255, 0.08);
+            --bg: #030712; --card: rgba(17, 24, 39, 0.7);
+            --primary: #c084fc; --secondary: #fb7185;
+            --accent: #22d3ee; --text: #f9fafb;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Lexend', sans-serif; }
         body {
-            background: var(--bg);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
+            background-color: var(--bg); color: var(--text);
+            min-height: 100vh; display: flex; justify-content: center; padding: 20px;
             overflow-x: hidden;
-            padding: 40px 20px;
         }
 
-        /* Hiệu ứng Aurora Nền */
-        .aurora {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; filter: blur(100px); opacity: 0.4;
+        /* Hiệu ứng hạt Nebula */
+        #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+        .container { max-width: 480px; width: 100%; z-index: 10; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Header */
+        .profile { text-align: center; margin-bottom: 30px; }
+        .avatar-box { position: relative; width: 110px; height: 110px; margin: 0 auto 15px; }
+        .avatar-box img { 
+            width: 100%; height: 100%; border-radius: 30px; object-fit: cover; 
+            border: 2px solid rgba(255,255,255,0.1); padding: 5px; background: var(--card);
+            box-shadow: 0 0 30px rgba(192, 132, 252, 0.2);
+        }
+        .status-badge {
+            position: absolute; top: -5px; right: -5px; background: #10b981;
+            padding: 4px 10px; border-radius: 12px; font-size: 9px; font-weight: 800;
+            letter-spacing: 1px; box-shadow: 0 0 15px #10b981;
+        }
+
+        /* Card */
+        .glass {
+            background: var(--card); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 28px;
+            padding: 25px; margin-bottom: 20px;
+        }
+        h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+
+        /* Donate Grid */
+        .donate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+        .d-btn { 
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+            color: #fff; padding: 12px; border-radius: 16px; cursor: pointer;
+            font-weight: 700; transition: 0.3s;
+        }
+        .d-btn:hover { background: var(--primary); transform: scale(1.05); }
+        .custom-input {
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px; border-radius: 16px; color: #fff; text-align: center; outline: none; margin-bottom: 15px;
+        }
+
+        .qr-area { background: #fff; padding: 12px; border-radius: 20px; display: inline-block; margin-top: 10px; }
+        .qr-area img { width: 170px; display: block; }
+
+        /* Bảng Vàng */
+        .item { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px; background: rgba(255,255,255,0.03); border-radius: 20px; 
+            margin-bottom: 10px; border-left: 4px solid var(--primary);
+        }
+        .item b { font-size: 14px; display: block; color: #fff; }
+        .item small { color: #94a3b8; font-size: 10px; }
+        .amt { color: #10b981; font-weight: 800; }
+
+        /* Stats */
+        .stats { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .stat-item b { font-size: 20px; color: var(--secondary); }
+        .bar { height: 10px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
+        .fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: 2s ease; }
+
+        button:disabled { opacity: 0.2; }
+    </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="container">
+    <div class="profile">
+        <div class="avatar-box">
+            <img src="https://i.ibb.co/gZvn2jXg/2c712dc97850837209ce3bc3f67262aa-0.jpg">
+            <div class="status-badge" id="stt">ONLINE</div>
+        </div>
+        <h1 style="font-weight:800; font-size: 26px;">Bùi Đăng Quân</h1>
+        <p style="font-size: 12px; color: #94a3b8;"><i class="fa-solid fa-wind"></i> Phan Rang - Nắng & Gió</p>
+    </div>
+
+    <div class="glass">
+        <h2><i class="fa-solid fa-quote-left"></i> Story</h2>
+        <p style="font-size: 13px; line-height: 1.8; color: #cbd5e1;">
+            Mình tin rằng mỗi người chúng ta đều là một lữ khách đang trên đường tìm kiếm bản ngã. Tại vùng đất Phan Rang này, mình học được cách trân trọng từng giọt nắng. Cảm ơn bạn vì đã ghé qua hành trình của mình!
+        </p>
+    </div>
+
+    <div class="glass" style="text-align: center;">
+        <h2><i class="fa-solid fa-heart"></i> Mệnh giá ủng hộ</h2>
+        <div class="donate-grid">
+            <button class="d-btn" onclick="gen(10000)">10K</button>
+            <button class="d-btn" onclick="gen(20000)">20K</button>
+            <button class="d-btn" onclick="gen(50000)">50K</button>
+            <button class="d-btn" onclick="gen(100000)">100K</button>
+            <button class="d-btn" onclick="gen(200000)">200K</button>
+            <button class="d-btn" onclick="gen(500000)">500K</button>
+        </div>
+        <input type="number" id="inp" class="custom-input" placeholder="Số tiền tùy chỉnh..." oninput="gen(this.value)">
+        <div class="qr-area"><img id="qr" src="https://qr.sepay.vn/img?acc=18520091234&bank=MBBank&amount=10000&des=UNG HO QUAN"></div>
+    </div>
+
+    <div class="glass">
+        <h2><i class="fa-solid fa-chart-line"></i> Milestone</h2>
+        <div class="stats">
+            <div class="stat-item"><span>Hôm nay</span><br><b id="today">0đ</b></div>
+            <div class="stat-item" style="text-align:right"><span>Tổng nhận</span><br><b id="total">0đ</b></div>
+        </div>
+        <div class="bar"><div class="fill" id="bar"></div></div>
+        <p style="font-size: 10px; margin-top: 8px; color: #94a3b8; text-align: center;">MỤC TIÊU 10.000.000đ - ĐÃ HOÀN THÀNH <span id="pct">0%</span></p>
+    </div>
+
+    <div class="glass">
+        <h2><i class="fa-solid fa-crown"></i> Bảng Vàng</h2>
+        <div id="list"></div>
+        <div style="display:flex; justify-content:center; gap:20px; margin-top:15px">
+            <button onclick="p(-1)" class="d-btn" style="padding:5px 15px" id="pb"><i class="fa-solid fa-chevron-left"></i></button>
+            <button onclick="p(1)" class="d-btn" style="padding:5px 15px" id="nb"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div id="log" style="font-size: 9px; color: #4ade80; margin-top: 15px; opacity: 0.5;">> Syncing with SePay...</div>
+    </div>
+</div>
+
+<script>
+    const API_KEY = "3BHXPWBZTUD3LRNB6CUEOJZCIQSMGMNKDN28UHGDGO0O6VPP41Q859YVYA5G7STI";
+    const API_URL = `https://corsproxy.io/?${encodeURIComponent('https://my.sepay.vn/userapi/transactions/list?api_key=' + API_KEY)}`;
+    
+    let db = [];
+    let cur = 1;
+    let last = null;
+
+    // Giọng nói thông báo (Thứ mình thích)
+    function speak(txt) {
+        const s = new SpeechSynthesisUtterance(txt);
+        s.lang = 'vi-VN';
+        window.speechSynthesis.speak(s);
+    }
+
+    async function update() {
+        try {
+            const r = await fetch(API_URL);
+            const j = await r.json();
+            if (j.transactions) {
+                db = j.transactions.filter(t => t.transaction_content.toUpperCase().includes("QUAN"));
+                
+                if (db.length > 0 && last !== null && db[0].id !== last) {
+                    confetti({ particleCount: 200, spread: 80, origin: { y: 0.7 } });
+                    let cleanName = clean(db[0].transaction_content);
+                    speak(`Cảm ơn ${cleanName} đã ủng hộ Quân ${Number(db[0].amount_in).toLocaleString()} đồng`);
+                }
+                last = db.length > 0 ? db[0].id : null;
+                ui();
+                render();
+            }
+        } catch (e) { document.getElementById('log').innerText = "> Connection retry..."; }
+    }
+
+    function clean(str) {
+        let s = str.toUpperCase().replace("UNG HO QUAN", "").replace("CHUYEN TIEN", "");
+        s = s.replace(/[0-9]/g, '').replace(/-/g, '').trim();
+        return s || "Một người bạn";
+    }
+
+    function ui() {
+        const sum = db.reduce((a, b) => a + Number(b.amount_in), 0);
+        document.getElementById('total').innerText = sum.toLocaleString() + "đ";
+        const todayStr = new Date().toLocaleDateString('en-CA');
+        const daySum = db.filter(t => t.transaction_date.includes(todayStr)).reduce((a, b) => a + Number(b.amount_in), 0);
+        document.getElementById('today').innerText = daySum.toLocaleString() + "đ";
+        const pct = Math.min((sum/10000000)*100, 100);
+        document.getElementById('bar').style.width = pct + "%";
+        document.getElementById('pct').innerText = Math.round(pct) + "%";
+    }
+
+    function render() {
+        const sz = 5;
+        const start = (cur - 1) * sz;
+        const items = db.slice(start, start + sz);
+        document.getElementById('list').innerHTML = items.map(t => `
+            <div class="item">
+                <div><b>${clean(t.transaction_content)}</b><small>${t.transaction_date}</small></div>
+                <div class="amt">+${Number(t.amount_in).toLocaleString()}đ</div>
+            </div>
+        `).join('') || "<p style='text-align:center;font-size:12px;opacity:0.5'>Chưa có dữ liệu</p>";
+        document.getElementById('pb').disabled = cur === 1;
+        document.getElementById('nb').disabled = start + sz >= db.length;
+    }
+
+    function p(n) { cur += n; render(); }
+    function gen(m) { 
+        if(m < 1000) return;
+        document.getElementById("qr").src = `https://qr.sepay.vn/img?acc=18520091234&bank=MBBank&amount=${m}&des=UNG HO QUAN`; 
+    }
+
+    // Nebula Particles Effect
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let parts = [];
+    function init() {
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        for(let i=0; i<60; i++) parts.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2, v: Math.random()*0.5});
+    }
+    function draw() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(255,255,255,0.2)";
+        parts.forEach(p => {
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
+            p.y -= p.v; if(p.y < 0) p.y = canvas.height;
+        });
+        requestAnimationFrame(draw);
+    }
+    init(); draw();
+    setInterval(update, 20000); update();
+</script>
+
+</body>
+</html>
         }
         .aurora div { position: absolute; border-radius: 50%; }
         .c1 { top: -10%; left: -10%; width: 50%; height: 50%; background: var(--primary); animation: move 20s infinite alternate; }
