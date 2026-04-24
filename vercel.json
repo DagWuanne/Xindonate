@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/sys_config.json",
+      "destination": "/api/sys_config"
+    }
+  ]
+}
+
